@@ -6,12 +6,20 @@ import CvInfo from "./components/CvInfo.jsx";
 import CvView from "./components/CvView.jsx";
 
 function App() {
+  const [cvData, setCvData] = useState({});
+
+  const handleSubmit = (formData) => {
+    // formData.keys .values .entries
+    const cvDataObj = Object.fromEntries(formData.entries());
+    setCvData(cvDataObj);
+  };
+
   return (
     <>
       <header></header>
       <main>
-        <CvInfo></CvInfo>
-        <CvView></CvView>
+        <CvInfo handleSubmit={handleSubmit}></CvInfo>
+        <CvView cvData={cvData}></CvView>
       </main>
       <footer></footer>
     </>

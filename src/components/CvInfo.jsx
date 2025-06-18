@@ -37,6 +37,7 @@ function EducationalInfo() {
     studyDateFrom: id + "-study-date-from",
     studyDateTo: id + "-study-date-to",
   };
+  
   return (
     <section>
       <h3>Educational Info</h3>
@@ -100,12 +101,7 @@ function PracticalExpInfo() {
   );
 }
 
-function handleSubmit(formData) {
-  console.log([...formData.keys()]);
-  console.log([...formData.values()]);
-}
-
-export default function CvInfo() {
+export default function CvInfo({handleSubmit}) {
   return (
     <form action={handleSubmit}>
       <GeneralInfo />
