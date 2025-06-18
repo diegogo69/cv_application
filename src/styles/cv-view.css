@@ -1,0 +1,30 @@
+.cv-view ul {
+    list-style: none;
+}
+
+.cv-viewer {
+    padding: 2rem;
+}
+
+.cv-view {
+    height: 100%;
+    padding: 2rem;
+    border: 2px solid var(--light);
+    box-shadow: 0 0 2rem .2rem var(--dark-shadow);
+
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.cv-view section {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.cv-view section ul {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}

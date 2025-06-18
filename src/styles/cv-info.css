@@ -1,0 +1,26 @@
+.cv-info {
+    padding: 1rem;
+}
+
+.cv-info form ul {
+    list-style: none;
+}
+
+.cv-info form {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.cv-info form section,
+.cv-info form section ul {
+    display: flex;
+    flex-direction: column;
+    gap: .8rem;
+}
+
+.cv-info form section ul > li{
+    display: flex;
+    flex-direction: column;
+    gap: .3rem;
+}

@@ -67,7 +67,7 @@ Make it responsive. Suitable for mobile, tablets and desktop devices. Prioritizi
 - Favor natural responsiveness, min-height, max-width, avoiding heights
 - Use of relative units: rem, em, percentages and viewport units
 
-# Error handling: validation / messages
+## Error handling: validation / messages
 
 Validate user input, implementing real-time validation on selected components, to favor user experience and minimize renders
 

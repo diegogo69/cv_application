@@ -51,11 +51,11 @@ function EducationalInfo() {
           <input type="text" name="study-title" id={ids.studyTitle} />
         </li>
         <li>
-          <label htmlFor={ids.studyDateFrom}>From:</label>
+          <label htmlFor={ids.studyDateFrom}>Start date:</label>
           <input type="date" name="study-date-from" id={ids.studyDateFrom} />
         </li>
         <li>
-          <label htmlFor={ids.studyDateTo}>To:</label>
+          <label htmlFor={ids.studyDateTo}>End date:</label>
           <input type="date" name="study-date-to" id={ids.studyDateTo} />
         </li>
       </ul>
@@ -85,7 +85,7 @@ function PracticalExpInfo() {
           <input type="text" name="position-title" id={ids.positionTitle} />
         </li>
         <li>
-          <label htmlFor={ids.positionDateFrom}>From:</label>
+          <label htmlFor={ids.positionDateFrom}>Start date:</label>
           <input
             type="date"
             name="position-date-from"
@@ -93,7 +93,7 @@ function PracticalExpInfo() {
           />
         </li>
         <li>
-          <label htmlFor={ids.positionDateTo}>To:</label>
+          <label htmlFor={ids.positionDateTo}>End date:</label>
           <input type="date" name="position-date-to" id={ids.positionDateTo} />
         </li>
       </ul>
