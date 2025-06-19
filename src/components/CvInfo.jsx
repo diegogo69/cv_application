@@ -8,9 +8,9 @@ export default function CvInfo({ handleSubmit }) {
         <GeneralInfo />
         <EducationalInfo />
         <PracticalExpInfo />
-        <section className="btn-wrapper">
+        <div className="btn-wrapper">
           <button type="submit">Update preview</button>
-        </section>
+        </div>
       </form>
     </div>
   );
