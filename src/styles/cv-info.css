@@ -1,16 +1,42 @@
 .cv-info {
-    padding: 1rem;
+    padding: 1.5rem;
     box-shadow: 0 0 2rem var(--dark-shadow);
+    position: relative;
 }
 
 .cv-info form ul {
     list-style: none;
 }
 
+.cv-info form h2 {
+    font-size: 1.5rem;
+    font-weight: 900;
+}
+
 .cv-info form {
     display: flex;
     flex-direction: column;
     gap: 2rem;
+}
+
+.cv-info form section {
+    background-color: var(--dark);
+    border: 2px solid color-mix(in oklab, var(--dark), white 50%);
+    padding: 1.5rem;
+    border-radius: 1rem;
+    transition:
+        box-shadow .25s,
+        background-color .1s;
+}
+
+.cv-info form section:hover {
+    background-color: color-mix(in oklab, var(--dark), white 1%);
+}
+
+.cv-info form section:focus-within {
+    --shadow: color-mix(in oklab, var(--dark), black 70%);
+    background-color: color-mix(in oklab, var(--dark), white 2%);
+    box-shadow: 0 0 1rem var(--shadow);
 }
 
 .cv-info form section,
@@ -23,5 +49,49 @@
 .cv-info form section ul > li{
     display: flex;
     flex-direction: column;
-    gap: .3rem;
+    gap: .4rem;
+}
+
+.cv-info form input[type='text'],
+.cv-info form input[type='email'],
+.cv-info form input[type='tel'],
+.cv-info form input[type='month'] {
+    padding: .4em .6em;
+    border: 2px solid color-mix(in oklab, var(--dark), black 10%);
+    border-radius: .3em;
+    transition:
+        border .2s .025s,
+        outline .2s;
+}
+
+.cv-info form input[type='text']:hover,
+.cv-info form input[type='email']:hover,
+.cv-info form input[type='tel']:hover,
+.cv-info form input[type='month']:hover {
+    border: 2px solid color-mix(in oklab, var(--dark), white 50%);
+}
+
+.cv-info form input[type='text']:focus,
+.cv-info form input[type='email']:focus,
+.cv-info form input[type='tel']:focus,
+.cv-info form input[type='month']:focus {
+    outline: none;
+    border: 2px solid color-mix(in oklab, var(--dark), white 80%);
+    /* box-shadow: 0 0 .5rem var(--dark-shadow); */
+}
+
+.cv-info .btn-wrapper {
+    position: sticky;
+    bottom: -1.5rem;
+    border: none;
+    padding: 1rem;
+    border-radius: 0;
+    flex-direction: row;
+    justify-content: end;
+}
+
+.cv-info .btn-wrapper button {
+    padding: .8em 1.2em;
+    border-radius: 1em;
+    border: none;
 }

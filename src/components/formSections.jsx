@@ -10,7 +10,7 @@ function GeneralInfo() {
 
   return (
     <section>
-      <h3>General</h3>
+      <h2>General</h2>
       <ul>
         <li>
           <label htmlFor={ids.name}>Name:</label>
@@ -40,7 +40,7 @@ function EducationalInfo() {
 
   return (
     <section>
-      <h3>Educational Info</h3>
+      <h2>Educational Info</h2>
       <ul>
         <li>
           <label htmlFor={ids.school}>School name:</label>
@@ -52,11 +52,11 @@ function EducationalInfo() {
         </li>
         <li>
           <label htmlFor={ids.studyDateFrom}>Start date:</label>
-          <input type="date" name="study-date-from" id={ids.studyDateFrom} />
+          <input type="month" name="study-date-from" id={ids.studyDateFrom} />
         </li>
         <li>
           <label htmlFor={ids.studyDateTo}>End date:</label>
-          <input type="date" name="study-date-to" id={ids.studyDateTo} />
+          <input type="month" name="study-date-to" id={ids.studyDateTo} />
         </li>
       </ul>
     </section>
@@ -68,13 +68,14 @@ function PracticalExpInfo() {
   const ids = {
     companyName: id + "-company-name",
     positionTitle: id + "-position-title",
+    positionResp: id + "-position-resp",
     positionDateFrom: id + "-position-date-from",
     positionDateTo: id + "-position-date-to",
   };
 
   return (
     <section>
-      <h3>Practical Experience</h3>
+      <h2>Practical Experience</h2>
       <ul>
         <li>
           <label htmlFor={ids.companyName}>Company name:</label>
@@ -85,16 +86,21 @@ function PracticalExpInfo() {
           <input type="text" name="position-title" id={ids.positionTitle} />
         </li>
         <li>
+          <label htmlFor={ids.positionResp}>Position responsabilites:</label>
+          <input type="text" name="position-resp" id={ids.positionResp} />
+        </li>
+        
+        <li>
           <label htmlFor={ids.positionDateFrom}>Start date:</label>
           <input
-            type="date"
+            type="month"
             name="position-date-from"
             id={ids.positionDateFrom}
           />
         </li>
         <li>
           <label htmlFor={ids.positionDateTo}>End date:</label>
-          <input type="date" name="position-date-to" id={ids.positionDateTo} />
+          <input type="month" name="position-date-to" id={ids.positionDateTo} />
         </li>
       </ul>
     </section>

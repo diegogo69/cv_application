@@ -61,7 +61,7 @@ I want to incorpore accessibility features, making the page semantic, keyboard a
 
 ## Responsive Design
 
-Make it responsive. Suitable for mobile, tablets and desktop devices. Prioritizing natural html resposivenes, flexible items, and effective and efficient media queries.
+Make it responsive. Suitable for mobile, tablets and desktop devices. Prioritizing natural html resposivenes, flexible items, and effective and efficient use of media queries.
 
 - Mobile, Tablet and Desktop support
 - Favor natural responsiveness, min-height, max-width, avoiding heights
@@ -85,7 +85,7 @@ Use animation to boost the user experience, providing value not only by how they
 
 ## Component design
 
-Practice with the different React concepts, design the UI in declarative manner, favor Components, manage state, sync controlled, create forms combining controlled and uncontrolled input fields, all in all to achieve a pleasing user experience.
+Practice with the different React concepts, design the UI in a declarative manner, favor Components, manage state, sync controlled, create forms combining controlled and uncontrolled input fields, all in all to achieve a pleasing user experience.
 
 - Combine controlled and uncontrolled input fields
 - Controlled components, driven by props, configured by parent

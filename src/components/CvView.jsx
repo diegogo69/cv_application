@@ -28,7 +28,7 @@ function CvGeneralItem({ cvData }) {
 function CvEducationItem({ cvData }) {
   return (
     <ul>
-      <li>{cvData["school-title"] || "School title"}</li>
+      <li>{cvData["study-title"] || "School title"}</li>
       <li>{cvData.school || "School"}</li>
       <li>
         {cvData["study-date-from"] || "Jun, 2025"} -{" "}
@@ -43,7 +43,7 @@ function CvExperienceItem({ cvData }) {
     <ul>
       <li>{cvData["company-name"] || "Company name"}</li>
       <li>{cvData["position-title"] || "Position title"}</li>
-      <li>{cvData["postion-resp"] || "Main responsabilities"}</li>
+      <li>{cvData["position-resp"] || "Main responsabilities"}</li>
       <li>
         {cvData["position-date-from"] || "Jun, 2025"} -{" "}
         {cvData["position-date-to"] || "present"}
