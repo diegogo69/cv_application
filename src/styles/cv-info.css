@@ -94,9 +94,11 @@
 .cv-info .btn-wrapper button {
     padding: .8em 1.2em;
     border-radius: 1em;
-    border: 2px solid color-mix(in oklab, var(--dark), white 80%);
+    border: 3px solid color-mix(in oklab, var(--dark), white 80%);
     background-color: var(--dark);
-    transition: background-color .2s .025s;
+    transition: 
+        background-color .2s .025s,
+        transform .2s;
     box-shadow: 0 0 1rem var(--dark-shadow);
     cursor: pointer;
 }
@@ -104,3 +106,10 @@
 .cv-info .btn-wrapper button:hover {
     background-color: color-mix(in oklab, var(--dark), white 10%)
 }
+
+.cv-info .btn-wrapper button:active {
+    transform: scale(102%);
+    background-color: color-mix(in oklab, var(--dark), black 15%);
+    box-shadow: 0 0 1rem var(--dark-shadow) inset;
+}
+
