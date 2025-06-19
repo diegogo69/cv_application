@@ -1,12 +1,17 @@
 #root {
-    flex: 1;
+    height: 100%;
     display: flex;
     flex-direction: column;
 }
 
 main {
-    flex: 1;
+    height: 100%; /* calc - header */
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1rem;
+}
+
+.cv-info,
+.cv-viewer {
+    overflow-y: auto;
 }

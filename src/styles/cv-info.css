@@ -1,5 +1,6 @@
 .cv-info {
     padding: 1rem;
+    box-shadow: 0 0 2rem var(--dark-shadow);
 }
 
 .cv-info form ul {
