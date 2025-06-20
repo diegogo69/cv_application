@@ -101,6 +101,7 @@
         transform .2s;
     box-shadow: 0 0 1rem var(--dark-shadow);
     cursor: pointer;
+    width: 10.5em;
 }
 
 .cv-info .btn-wrapper button:hover {

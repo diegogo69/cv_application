@@ -52,12 +52,12 @@ function CvExperienceItem({ cvData }) {
   );
 }
 
-export default function CvView({ cvData }) {
+export default function CvView({ cvData, cvUpdated }) {
   console.log(cvData);
   console.log(Object.entries(cvData));
   return (
     <div className="cv-viewer">
-      <div className="cv-view">
+      <div className={'cv-view' + (cvUpdated ? " cv-updated" : '')}>
         <section className="cv-general">
           <h1>{cvData.name || "Your name goes here"}</h1>
           <CvGeneralItem cvData={cvData} />

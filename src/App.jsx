@@ -5,6 +5,12 @@ import CvView from "./components/CvView.jsx";
 
 function App() {
   const [cvData, setCvData] = useState({});
+  const [cvUpdated, setCvUpdated] = useState(false)
+  
+  const updateCvPreview = () => {
+    setCvUpdated(true);
+    setTimeout(() => setCvUpdated(false), 1000)
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -12,14 +18,15 @@ function App() {
     // formData.keys .values .entries 
     const cvDataObj = Object.fromEntries(formData.entries());
     setCvData(cvDataObj);
+    updateCvPreview()
   };
 
   return (
     <>
       <header></header>
       <main>
-        <CvInfo handleSubmit={handleSubmit}></CvInfo>
-        <CvView cvData={cvData}></CvView>
+        <CvInfo handleSubmit={handleSubmit} cvUpdated={cvUpdated}></CvInfo>
+        <CvView cvData={cvData} cvUpdated={cvUpdated}></CvView>
       </main>
       <footer></footer>
     </>

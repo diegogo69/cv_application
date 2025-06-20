@@ -1,7 +1,7 @@
 import "../styles/cv-info.css";
 import { GeneralInfo, EducationalInfo, PracticalExpInfo } from "./formSections";
 
-export default function CvInfo({ handleSubmit }) {
+export default function CvInfo({ handleSubmit, cvUpdated }) {
   return (
     <div className="cv-info">
       <form onSubmit={handleSubmit}>
@@ -9,7 +9,9 @@ export default function CvInfo({ handleSubmit }) {
         <EducationalInfo />
         <PracticalExpInfo />
         <div className="btn-wrapper">
-          <button type="submit">Update preview</button>
+          <button type="submit" disabled={cvUpdated}>
+            {cvUpdated ? "Updating..." : "Update preview"}
+          </button>
         </div>
       </form>
     </div>
