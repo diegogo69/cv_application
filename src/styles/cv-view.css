@@ -35,7 +35,7 @@
 
 .cv-view.cv-updated {
     /* transform: scale(101%); */
-    animation: .25s ease-in-out 2 alternate cv-updated;
+    animation: .5s ease-in-out 2 alternate cv-updated;
 }
 
 @keyframes cv-updated {

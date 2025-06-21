@@ -21,6 +21,8 @@ function App() {
 
   const handleReset = () => {
     setCvData({})
+    storage.updateDraw({});
+    storage.update();
   }
   const handleSubmit = (e) => {
     // formData.keys .values .entries

@@ -1,5 +1,4 @@
 .cv-info {
-    padding: 1.5rem;
     box-shadow: 0 0 2rem var(--dark-shadow);
     position: relative;
 }
@@ -17,12 +16,13 @@
     display: flex;
     flex-direction: column;
     gap: 2rem;
+    padding: 1.5rem;
 }
 
 .cv-info .btn-wrapper,
 .cv-info form section {
     background-color: var(--dark);
-    border: 2px solid color-mix(in oklab, var(--dark), white 50%);
+    border: 3px solid color-mix(in oklab, var(--dark), white 50%);
     padding: 1.5rem;
     border-radius: 1rem;
     transition:
@@ -31,7 +31,7 @@
 }
 
 .cv-info form section:hover {
-    background-color: color-mix(in oklab, var(--dark), white 1%);
+    background-color: color-mix(in oklab, var(--dark), white 2%);
 }
 
 .cv-info form section:focus-within {
@@ -83,12 +83,13 @@
 
 .cv-info .btn-wrapper {
     position: sticky;
-    bottom: -1.5rem;
-    border: none;
-    padding: 1rem;
-    border-radius: 0;
+    bottom: 0;
     display: flex;
     justify-content: end;
+    gap: 1rem;
+    padding: 1rem 3rem;
+    border: none;
+    border-radius: 0;
 }
 
 .cv-info .btn-wrapper button {
@@ -101,9 +102,11 @@
         transform .2s;
     box-shadow: 0 0 1rem var(--dark-shadow);
     cursor: pointer;
-    /* min-width: 10.5em; */
 }
 
+.cv-info .btn-wrapper button[type='submit'] {
+    min-width: 10.5em;
+}
 .cv-info .btn-wrapper button:hover {
     background-color: color-mix(in oklab, var(--dark), white 10%)
 }
