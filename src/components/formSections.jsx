@@ -1,6 +1,7 @@
 import { useId } from "react";
 
-function GeneralInfo() {
+function GeneralInfo({ cvData }) {
+  const { name, email, tel } = cvData;
   const id = useId();
   const ids = {
     name: id + "-name",
@@ -14,22 +15,27 @@ function GeneralInfo() {
       <ul>
         <li>
           <label htmlFor={ids.name}>Name:</label>
-          <input type="text" name="name" id={ids.name} />
+          <input type="text" name="name" id={ids.name} defaultValue={name} />
         </li>
         <li>
           <label htmlFor={ids.email}>Email:</label>
-          <input type="email" name="email" id={ids.email} />
+          <input
+            type="email"
+            name="email"
+            id={ids.email}
+            defaultValue={email}
+          />
         </li>
         <li>
           <label htmlFor={ids.tel}>Phone number:</label>
-          <input type="tel" name="tel" id={ids.tel} />
+          <input type="tel" name="tel" id={ids.tel} defaultValue={tel} />
         </li>
       </ul>
     </section>
   );
 }
 
-function EducationalInfo() {
+function EducationalInfo({ cvData }) {
   const id = useId();
   const ids = {
     school: id + "-school",
@@ -44,26 +50,46 @@ function EducationalInfo() {
       <ul>
         <li>
           <label htmlFor={ids.school}>School name:</label>
-          <input type="text" name="school" id={ids.school} />
+          <input
+            type="text"
+            name="school"
+            id={ids.school}
+            defaultValue={cvData["school"]}
+          />
         </li>
         <li>
           <label htmlFor={ids.studyTitle}>Study title:</label>
-          <input type="text" name="study-title" id={ids.studyTitle} />
+          <input
+            type="text"
+            name="study-title"
+            id={ids.studyTitle}
+            defaultValue={cvData["study-title"]}
+          />
         </li>
         <li>
           <label htmlFor={ids.studyDateFrom}>Start date:</label>
-          <input type="month" name="study-date-from" id={ids.studyDateFrom} />
+          <input
+            type="month"
+            name="study-date-from"
+            id={ids.studyDateFrom}
+            defaultValue={cvData["study-date-from"]}
+          />
         </li>
         <li>
           <label htmlFor={ids.studyDateTo}>End date:</label>
-          <input type="month" name="study-date-to" id={ids.studyDateTo} />
+          <input
+            type="month"
+            name="study-date-to"
+            id={ids.studyDateTo}
+            defaultValue={cvData["study-date-to"]}
+          />
         </li>
       </ul>
     </section>
   );
 }
 
-function PracticalExpInfo() {
+function PracticalExpInfo({ cvData }) {
   const id = useId();
   const ids = {
     companyName: id + "-company-name",
@@ -79,28 +105,49 @@ function PracticalExpInfo() {
       <ul>
         <li>
           <label htmlFor={ids.companyName}>Company name:</label>
-          <input type="text" name="company-name" id={ids.companyName} />
+          <input
+            type="text"
+            name="company-name"
+            id={ids.companyName}
+            defaultValue={cvData["company-name"]}
+          />
         </li>
         <li>
           <label htmlFor={ids.positionTitle}>Position title:</label>
-          <input type="text" name="position-title" id={ids.positionTitle} />
+          <input
+            type="text"
+            name="position-title"
+            id={ids.positionTitle}
+            defaultValue={cvData["position-title"]}
+          />
         </li>
         <li>
           <label htmlFor={ids.positionResp}>Position responsabilites:</label>
-          <input type="text" name="position-resp" id={ids.positionResp} />
+          <input
+            type="text"
+            name="position-resp"
+            id={ids.positionResp}
+            defaultValue={cvData["position-resp"]}
+          />
         </li>
-        
+
         <li>
           <label htmlFor={ids.positionDateFrom}>Start date:</label>
           <input
             type="month"
             name="position-date-from"
             id={ids.positionDateFrom}
+            defaultValue={cvData["position-date-from"]}
           />
         </li>
         <li>
           <label htmlFor={ids.positionDateTo}>End date:</label>
-          <input type="month" name="position-date-to" id={ids.positionDateTo} />
+          <input
+            type="month"
+            name="position-date-to"
+            id={ids.positionDateTo}
+            defaultValue={cvData["position-date-to"]}
+          />
         </li>
       </ul>
     </section>
