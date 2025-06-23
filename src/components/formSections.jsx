@@ -38,8 +38,8 @@ function GeneralInfo({ cvData }) {
 
 function EducationalInfo({
   cvData,
-  handleAddEdu,
-  handleEditEdu,
+  addEduItem,
+  saveEditEduItem,
   removeEduItem,
   eduItems,
   setFormData,
@@ -54,12 +54,38 @@ function EducationalInfo({
   const [defaultValues, setDefaultValues] = useState(cvData);
   const [editItem, setEditItem] = useState(null);
 
-  function selectEduItem(e, itemIndex) {
+  const selectEduItem = (e, index) => {
     const form = e.target.closest("form");
-    setFormData(form);
-    setDefaultValues(eduItems[itemIndex]);
+    const formData = new FormData(form);
+    setFormData(formData);
+    setDefaultValues(eduItems[index]);
+    if (editItem != index) setEditItem(null);
     form.reset();
   }
+
+  const handleAddEdu = (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target.form);
+    addEduItem(formData)
+  }
+
+  const handleRemoveEdu = (e, index) => {
+    e.stopPropagation();
+    removeEduItem(index);
+    if (editItem == index) setEditItem(null);
+  };
+
+  const handleEditEdu = (e, index) => {
+    e.stopPropagation();
+    selectEduItem(e, index);
+    setEditItem(index);
+  };
+
+  const handleSaveEditEdu = (e) => {
+    e.preventDefault();
+    saveEditEduItem(e, editItem);
+    setEditItem(null);
+  };
 
   return (
     <section>
@@ -113,23 +139,10 @@ function EducationalInfo({
               <header>
                 {eduItem["study-title"]}
                 <div className="item-btns">
-                  <button
-                    type="button"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      selectEduItem(e, index);
-                      setEditItem(index);
-                    }}
-                  >
+                  <button type="button" onClick={(e) => handleEditEdu(e, index)}>
                     Edit
                   </button>
-                  <button
-                    type="button"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      removeEduItem(index);
-                    }}
-                  >
+                  <button type="button" onClick={(e) => handleRemoveEdu(e, index)}>
                     Rem
                   </button>
                 </div>
@@ -148,13 +161,7 @@ function EducationalInfo({
             Add
           </button>
         ) : (
-          <button
-            type="submit"
-            onClick={(e) => {
-              handleEditEdu(e, editItem);
-              setEditItem(null);
-            }}
-          >
+          <button type="submit" onClick={handleSaveEditEdu}>
             Save
           </button>
         )}

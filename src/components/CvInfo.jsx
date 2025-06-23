@@ -3,10 +3,10 @@ import { GeneralInfo, EducationalInfo, PracticalExpInfo } from "./formSections";
 import { useId } from "react";
 
 export default function CvInfo({
-  handleSubmit,
-  handleReset,
-  handleAddEdu,
-  handleEditEdu,
+  submitCvInfo,
+  clearCvData,
+  addEduItem,
+  saveEditEduItem,
   removeEduItem,
   setFormData,
   eduItems,
@@ -14,6 +14,21 @@ export default function CvInfo({
   cvData,
 }) {
   const id = useId();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const form = e.target.form;
+    const formData = new FormData(form);
+    submitCvInfo(formData);
+  };
+
+  const handleReset = (e) => {
+    e.preventDefault();
+    const form = e.target.form;
+    form.reset();
+    clearCvData();
+  };
+
   return (
     <div className="cv-info">
       <form id={id}>
@@ -21,8 +36,8 @@ export default function CvInfo({
         <EducationalInfo
           cvData={cvData}
           eduItems={eduItems}
-          handleAddEdu={handleAddEdu}
-          handleEditEdu={handleEditEdu}
+          addEduItem={addEduItem}
+          saveEditEduItem={saveEditEduItem}
           removeEduItem={removeEduItem}
           setFormData={setFormData}
         />

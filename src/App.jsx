@@ -12,47 +12,39 @@ function App() {
   const cvDraw = storage.loadDraw();
   let initialCvData = cvDraw ? cvDraw : {};
   const [cvData, setCvData] = useState(initialCvData);
-  const [cvFormData, setCvFormData] = useState(initialCvData);
+  const [cvInfoData, setCvInfoData] = useState(initialCvData);
   const [cvUpdated, setCvUpdated] = useState(false);
   const [eduItems, setEduItems] = useState([]);
 
   const updateCvPreview = () => {
+    setCvData({...cvInfoData})
     setCvUpdated(true);
     setTimeout(() => setCvUpdated(false), 1000);
   };
 
-  const handleReset = () => {
+  const clearCvData = () => {
     setCvData({});
+    setCvInfoData({});
     storage.updateDraw({});
     storage.update();
   };
 
-  const setFormData = (form) => {
-    const formData = new FormData(form);
+  const setFormData = (formData) => {
     const cvDataObj = Object.fromEntries(formData.entries());
     // setCvData(cvDataObj);
-    setCvFormData(cvDataObj);
+    setCvInfoData(cvDataObj);
     return cvDataObj;
   };
 
-  const handleSubmit = (e) => {
+  const submitCvInfo = (formData) => {
     // formData.keys .values .entries
-    e.preventDefault();
-    const cvDataObj = setFormData(e.target.form);
+    const cvDataObj = setFormData(formData);
     storage.updateDraw(cvDataObj);
     storage.update();
     updateCvPreview();
   };
 
-  const removeEduItem = (index) => {
-    const copyArr = [...eduItems]
-    copyArr.splice(index, 1)
-    setEduItems(copyArr);
-  }
-
-  const handleAddEdu = (e) => {
-    e.preventDefault();
-    const formData = new FormData(e.target.form);
+  const addEduItem = (formData) => {
     const cvDataObj = Object.fromEntries(formData.entries());
 
     const eduItem = {};
@@ -61,15 +53,17 @@ function App() {
     eduItem["study-date-from"] = cvDataObj["study-date-from"];
     eduItem["study-date-to"] = cvDataObj["study-date-to"];
     eduItem["key"] = crypto.randomUUID();
-    console.log("Edu item");
-    console.log(eduItem);
 
     setEduItems([...eduItems, eduItem]);
   };
 
+  const removeEduItem = (index) => {
+    const copyArr = [...eduItems]
+    copyArr.splice(index, 1)
+    setEduItems(copyArr);
+  }
   
-  const handleEditEdu = (e, index) => {
-    e.preventDefault();
+  const saveEditEduItem = (e, index) => {
     const formData = new FormData(e.target.form);
     const cvDataObj = Object.fromEntries(formData.entries());
 
@@ -78,9 +72,6 @@ function App() {
     eduItem["study-title"] = cvDataObj["study-title"];
     eduItem["study-date-from"] = cvDataObj["study-date-from"];
     eduItem["study-date-to"] = cvDataObj["study-date-to"];
-    // eduItem["key"] = crypto.randomUUID();
-    console.log("Edu item");
-    console.log(eduItem);
 
     setEduItems([...eduItems]);
   };
@@ -90,15 +81,15 @@ function App() {
       <header></header>
       <main>
         <CvInfo
-          handleSubmit={handleSubmit}
-          handleReset={handleReset}
-          handleAddEdu={handleAddEdu}
-          handleEditEdu={handleEditEdu}
+          submitCvInfo={submitCvInfo}
+          clearCvData={clearCvData}
+          addEduItem={addEduItem}
+          saveEditEduItem={saveEditEduItem}
           removeEduItem={removeEduItem}
           setFormData={setFormData}
           eduItems={eduItems}
           cvUpdated={cvUpdated}
-          cvData={cvFormData}
+          cvData={cvInfoData}
         ></CvInfo>
         <CvView cvData={cvData} cvUpdated={cvUpdated}></CvView>
       </main>
