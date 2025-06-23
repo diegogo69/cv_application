@@ -36,7 +36,13 @@ function GeneralInfo({ cvData }) {
   );
 }
 
-function EducationalInfo({ cvData, handleAddEdu, eduItems, setFormData }) {
+function EducationalInfo({
+  cvData,
+  handleAddEdu,
+  removeEduItem,
+  eduItems,
+  setFormData,
+}) {
   const id = useId();
   const ids = {
     school: id + "-school",
@@ -44,17 +50,15 @@ function EducationalInfo({ cvData, handleAddEdu, eduItems, setFormData }) {
     studyDateFrom: id + "-study-date-from",
     studyDateTo: id + "-study-date-to",
   };
-  const [defaultValues, setDefaultValues] = useState(cvData)
+  const [defaultValues, setDefaultValues] = useState(cvData);
 
   function selectEduItem(e, itemIndex) {
-    const form = e.target.closest('form');
-    console.log(itemIndex)
-    console.log(eduItems[itemIndex])
-    setFormData(form)
-    setDefaultValues(eduItems[itemIndex])
+    const form = e.target.closest("form");
+    setFormData(form);
+    setDefaultValues(eduItems[itemIndex]);
     form.reset();
-
   }
+
   return (
     <section>
       <h2>Educational Info</h2>
@@ -99,8 +103,26 @@ function EducationalInfo({ cvData, handleAddEdu, eduItems, setFormData }) {
       <div className="info-items">
         {eduItems.map((eduItem, index) => {
           return (
-            <div key={eduItem.key} className="info-item" onClick={(e) => selectEduItem(e, index)}>
-              <header>{eduItem["study-title"]}</header>
+            <div
+              key={eduItem.key}
+              className="info-item"
+              onClick={(e) => selectEduItem(e, index)}
+            >
+              <header>
+                {eduItem["study-title"]}
+                <div className="item-btns">
+                  <button type="button">Edit</button>
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      removeEduItem(index);
+                    }}
+                  >
+                    Rem
+                  </button>
+                </div>
+              </header>
               <div>{eduItem["school"]}</div>
               <footer>
                 {eduItem["study-date-from"]} - {eduItem["study-date-to"]}

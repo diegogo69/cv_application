@@ -6,6 +6,7 @@ export default function CvInfo({
   handleSubmit,
   handleReset,
   handleAddEdu,
+  removeEduItem,
   setFormData,
   eduItems,
   cvUpdated,
@@ -20,6 +21,7 @@ export default function CvInfo({
           cvData={cvData}
           eduItems={eduItems}
           handleAddEdu={handleAddEdu}
+          removeEduItem={removeEduItem}
           setFormData={setFormData}
         />
         <PracticalExpInfo cvData={cvData} />

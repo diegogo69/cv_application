@@ -44,6 +44,12 @@ function App() {
     updateCvPreview();
   };
 
+  const removeEduItem = (index) => {
+    const copyArr = [...eduItems]
+    copyArr.splice(index, 1)
+    setEduItems(copyArr);
+  }
+
   const handleAddEdu = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target.form);
@@ -69,6 +75,7 @@ function App() {
           handleSubmit={handleSubmit}
           handleReset={handleReset}
           handleAddEdu={handleAddEdu}
+          removeEduItem={removeEduItem}
           setFormData={setFormData}
           eduItems={eduItems}
           cvUpdated={cvUpdated}
