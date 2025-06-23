@@ -67,6 +67,24 @@ function App() {
     setEduItems([...eduItems, eduItem]);
   };
 
+  
+  const handleEditEdu = (e, index) => {
+    e.preventDefault();
+    const formData = new FormData(e.target.form);
+    const cvDataObj = Object.fromEntries(formData.entries());
+
+    const eduItem = eduItems[index];
+    eduItem["school"] = cvDataObj["school"];
+    eduItem["study-title"] = cvDataObj["study-title"];
+    eduItem["study-date-from"] = cvDataObj["study-date-from"];
+    eduItem["study-date-to"] = cvDataObj["study-date-to"];
+    // eduItem["key"] = crypto.randomUUID();
+    console.log("Edu item");
+    console.log(eduItem);
+
+    setEduItems([...eduItems]);
+  };
+
   return (
     <>
       <header></header>
@@ -75,6 +93,7 @@ function App() {
           handleSubmit={handleSubmit}
           handleReset={handleReset}
           handleAddEdu={handleAddEdu}
+          handleEditEdu={handleEditEdu}
           removeEduItem={removeEduItem}
           setFormData={setFormData}
           eduItems={eduItems}

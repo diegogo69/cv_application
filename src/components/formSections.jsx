@@ -39,6 +39,7 @@ function GeneralInfo({ cvData }) {
 function EducationalInfo({
   cvData,
   handleAddEdu,
+  handleEditEdu,
   removeEduItem,
   eduItems,
   setFormData,
@@ -51,6 +52,7 @@ function EducationalInfo({
     studyDateTo: id + "-study-date-to",
   };
   const [defaultValues, setDefaultValues] = useState(cvData);
+  const [editItem, setEditItem] = useState(null);
 
   function selectEduItem(e, itemIndex) {
     const form = e.target.closest("form");
@@ -111,7 +113,16 @@ function EducationalInfo({
               <header>
                 {eduItem["study-title"]}
                 <div className="item-btns">
-                  <button type="button">Edit</button>
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      selectEduItem(e, index);
+                      setEditItem(index);
+                    }}
+                  >
+                    Edit
+                  </button>
                   <button
                     type="button"
                     onClick={(e) => {
@@ -132,9 +143,21 @@ function EducationalInfo({
         })}
       </div>
       <div className="btn-wrapper">
-        <button type="submit" onClick={handleAddEdu}>
-          Add
-        </button>
+        {editItem == null ? (
+          <button type="submit" onClick={handleAddEdu}>
+            Add
+          </button>
+        ) : (
+          <button
+            type="submit"
+            onClick={(e) => {
+              handleEditEdu(e, editItem);
+              setEditItem(null);
+            }}
+          >
+            Save
+          </button>
+        )}
       </div>
     </section>
   );
