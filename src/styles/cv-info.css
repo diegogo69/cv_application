@@ -124,10 +124,19 @@
 
 .cv-info .info-items {
     display: flex;
-    overflow-x: auto;
+    flex-wrap: nowrap;
     gap: 1rem;
+    overflow-x: auto;
+    padding: 1rem 0;
 }
 
-.cv-info .info-items>div {
-    min-width: 4rem;
+.cv-info .info-items .info-item {
+    flex: 0 0 10rem;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    border: 3px solid color-mix(in oklab, var(--dark), white 80%);
+    border-radius: .5rem;
+    padding: .5rem
+
 }

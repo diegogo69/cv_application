@@ -12,6 +12,7 @@ function App() {
   const cvDraw = storage.loadDraw();
   let initialCvData = cvDraw ? cvDraw : {};
   const [cvData, setCvData] = useState(initialCvData);
+  const [cvFormData, setCvFormData] = useState(initialCvData);
   const [cvUpdated, setCvUpdated] = useState(false);
   const [eduItems, setEduItems] = useState([]);
 
@@ -25,13 +26,19 @@ function App() {
     storage.updateDraw({});
     storage.update();
   };
+
+  const setFormData = (form) => {
+    const formData = new FormData(form);
+    const cvDataObj = Object.fromEntries(formData.entries());
+    // setCvData(cvDataObj);
+    setCvFormData(cvDataObj);
+    return cvDataObj;
+  };
+
   const handleSubmit = (e) => {
     // formData.keys .values .entries
     e.preventDefault();
-    const formData = new FormData(e.target.form);
-    const cvDataObj = Object.fromEntries(formData.entries());
-
-    setCvData(cvDataObj);
+    const cvDataObj = setFormData(e.target.form);
     storage.updateDraw(cvDataObj);
     storage.update();
     updateCvPreview();
@@ -47,7 +54,7 @@ function App() {
     eduItem["study-title"] = cvDataObj["study-title"];
     eduItem["study-date-from"] = cvDataObj["study-date-from"];
     eduItem["study-date-to"] = cvDataObj["study-date-to"];
-    eduItem['key'] = crypto.randomUUID()
+    eduItem["key"] = crypto.randomUUID();
     console.log("Edu item");
     console.log(eduItem);
 
@@ -62,9 +69,10 @@ function App() {
           handleSubmit={handleSubmit}
           handleReset={handleReset}
           handleAddEdu={handleAddEdu}
+          setFormData={setFormData}
           eduItems={eduItems}
           cvUpdated={cvUpdated}
-          cvData={cvData}
+          cvData={cvFormData}
         ></CvInfo>
         <CvView cvData={cvData} cvUpdated={cvUpdated}></CvView>
       </main>

@@ -36,7 +36,7 @@ function GeneralInfo({ cvData }) {
   );
 }
 
-function EducationalInfo({ cvData, handleAddEdu, eduItems }) {
+function EducationalInfo({ cvData, handleAddEdu, eduItems, setFormData }) {
   const id = useId();
   const ids = {
     school: id + "-school",
@@ -44,8 +44,17 @@ function EducationalInfo({ cvData, handleAddEdu, eduItems }) {
     studyDateFrom: id + "-study-date-from",
     studyDateTo: id + "-study-date-to",
   };
+  const [defaultValues, setDefaultValues] = useState(cvData)
 
-  function n() {}
+  function selectEduItem(e, itemIndex) {
+    const form = e.target.closest('form');
+    console.log(itemIndex)
+    console.log(eduItems[itemIndex])
+    setFormData(form)
+    setDefaultValues(eduItems[itemIndex])
+    form.reset();
+
+  }
   return (
     <section>
       <h2>Educational Info</h2>
@@ -56,7 +65,7 @@ function EducationalInfo({ cvData, handleAddEdu, eduItems }) {
             type="text"
             name="school"
             id={ids.school}
-            defaultValue={cvData["school"]}
+            defaultValue={defaultValues["school"]}
           />
         </li>
         <li>
@@ -65,7 +74,7 @@ function EducationalInfo({ cvData, handleAddEdu, eduItems }) {
             type="text"
             name="study-title"
             id={ids.studyTitle}
-            defaultValue={cvData["study-title"]}
+            defaultValue={defaultValues["study-title"]}
           />
         </li>
         <li>
@@ -74,7 +83,7 @@ function EducationalInfo({ cvData, handleAddEdu, eduItems }) {
             type="month"
             name="study-date-from"
             id={ids.studyDateFrom}
-            defaultValue={cvData["study-date-from"]}
+            defaultValue={defaultValues["study-date-from"]}
           />
         </li>
         <li>
@@ -83,15 +92,15 @@ function EducationalInfo({ cvData, handleAddEdu, eduItems }) {
             type="month"
             name="study-date-to"
             id={ids.studyDateTo}
-            defaultValue={cvData["study-date-to"]}
+            defaultValue={defaultValues["study-date-to"]}
           />
         </li>
       </ul>
       <div className="info-items">
-        {eduItems.map((eduItem) => {
+        {eduItems.map((eduItem, index) => {
           return (
-            <div>
-              <header>{eduItem["school-title"]}</header>
+            <div key={eduItem.key} className="info-item" onClick={(e) => selectEduItem(e, index)}>
+              <header>{eduItem["study-title"]}</header>
               <div>{eduItem["school"]}</div>
               <footer>
                 {eduItem["study-date-from"]} - {eduItem["study-date-to"]}
