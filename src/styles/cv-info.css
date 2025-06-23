@@ -19,7 +19,6 @@
     padding: 1.5rem;
 }
 
-.cv-info .btn-wrapper,
 .cv-info form section {
     background-color: var(--dark);
     border: 3px solid color-mix(in oklab, var(--dark), white 50%);
@@ -82,14 +81,23 @@
 }
 
 .cv-info .btn-wrapper {
-    position: sticky;
-    bottom: 0;
     display: flex;
     justify-content: end;
     gap: 1rem;
+    background-color: inherit;
+}
+
+.cv-info>.btn-wrapper {
+    position: sticky;
+    bottom: 0;
     padding: 1rem 3rem;
     border: none;
     border-radius: 0;
+    background-color: var(--dark);
+}
+
+.cv-info>.btn-wrapper button[type='submit'] {
+    min-width: 10.5em;
 }
 
 .cv-info .btn-wrapper button {
@@ -97,16 +105,13 @@
     border-radius: 1em;
     border: 3px solid color-mix(in oklab, var(--dark), white 80%);
     background-color: var(--dark);
-    transition: 
+    transition:
         background-color .2s .025s,
         transform .2s;
     box-shadow: 0 0 1rem var(--dark-shadow);
     cursor: pointer;
 }
 
-.cv-info .btn-wrapper button[type='submit'] {
-    min-width: 10.5em;
-}
 .cv-info .btn-wrapper button:hover {
     background-color: color-mix(in oklab, var(--dark), white 10%)
 }
@@ -117,3 +122,12 @@
     box-shadow: 0 0 1rem var(--dark-shadow) inset;
 }
 
+.cv-info .info-items {
+    display: flex;
+    overflow-x: auto;
+    gap: 1rem;
+}
+
+.cv-info .info-items>div {
+    min-width: 4rem;
+}

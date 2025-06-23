@@ -1,4 +1,5 @@
 import { useId } from "react";
+import { useState } from "react";
 
 function GeneralInfo({ cvData }) {
   const { name, email, tel } = cvData;
@@ -35,7 +36,7 @@ function GeneralInfo({ cvData }) {
   );
 }
 
-function EducationalInfo({ cvData }) {
+function EducationalInfo({ cvData, handleAddEdu, eduItems }) {
   const id = useId();
   const ids = {
     school: id + "-school",
@@ -44,6 +45,7 @@ function EducationalInfo({ cvData }) {
     studyDateTo: id + "-study-date-to",
   };
 
+  function n() {}
   return (
     <section>
       <h2>Educational Info</h2>
@@ -85,6 +87,24 @@ function EducationalInfo({ cvData }) {
           />
         </li>
       </ul>
+      <div className="info-items">
+        {eduItems.map((eduItem) => {
+          return (
+            <div>
+              <header>{eduItem["school-title"]}</header>
+              <div>{eduItem["school"]}</div>
+              <footer>
+                {eduItem["study-date-from"]} - {eduItem["study-date-to"]}
+              </footer>
+            </div>
+          );
+        })}
+      </div>
+      <div className="btn-wrapper">
+        <button type="submit" onClick={handleAddEdu}>
+          Add
+        </button>
+      </div>
     </section>
   );
 }
