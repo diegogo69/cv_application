@@ -78,6 +78,7 @@ function EducationalInfo({
     const formData = new FormData(e.target.form);
     let isValid = true;
     const errors = {};
+
     inputNames.forEach((name) => {
       const input = formData.get(name);
       if (!input) {
@@ -87,6 +88,7 @@ function EducationalInfo({
         errors[name] = false;
       }
     });
+
     setErrMsgs({ ...errors });
     if (!isValid) return;
     addEduItem(formData);
@@ -101,9 +103,13 @@ function EducationalInfo({
   const handleEditEdu = (e, index, key) => {
     e.stopPropagation();
     selectEduItem(e, index, key);
-    setEditItem({index, key});
+    setEditItem({ index, key });
   };
 
+  const cancelSaveEditEdu = (e) => {
+    e.preventDefault();
+    setEditItem({});
+  }
   const handleSaveEditEdu = (e) => {
     e.preventDefault();
     saveEditEduItem(e, editItem.index);
@@ -196,9 +202,14 @@ function EducationalInfo({
             Add
           </button>
         ) : (
-          <button type="submit" onClick={handleSaveEditEdu}>
-            Save
-          </button>
+          <>
+            <button type="button" onClick={cancelSaveEditEdu}>
+              Cancel
+            </button>
+            <button type="submit" onClick={handleSaveEditEdu}>
+              Save
+            </button>
+          </>
         )}
       </div>
     </section>

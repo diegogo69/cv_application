@@ -10,11 +10,13 @@ storage.parse();
 
 function App() {
   const cvDraw = storage.loadDraw();
-  let initialCvData = cvDraw ? cvDraw : {};
+  const initialCvData = cvDraw ? cvDraw : {};
+  const initialEduItems = cvDraw.eduItems ? cvDraw.eduItems : [];
+  
   const [cvData, setCvData] = useState(initialCvData);
   const [cvInfoData, setCvInfoData] = useState(initialCvData);
   const [cvUpdated, setCvUpdated] = useState(false);
-  const [eduItems, setEduItems] = useState([]);
+  const [eduItems, setEduItems] = useState(initialEduItems);
 
   const updateCvPreview = () => {
     setCvData({...cvInfoData})
@@ -31,6 +33,7 @@ function App() {
 
   const setFormData = (formData) => {
     const cvDataObj = Object.fromEntries(formData.entries());
+    cvDataObj.eduItems = eduItems;
     // setCvData(cvDataObj);
     setCvInfoData(cvDataObj);
     return cvDataObj;
