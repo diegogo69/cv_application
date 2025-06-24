@@ -29,6 +29,12 @@
 
 .cv-view section ul {
     display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+}
+
+.cv-view section ul li {
+    display: flex;
     flex-direction: column;
     gap: 1rem;
 }

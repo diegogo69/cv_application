@@ -10,30 +10,31 @@ storage.parse();
 
 function App() {
   const cvDraw = storage.loadDraw();
-  const initialCvData = cvDraw ? cvDraw : {};
-  const initialEduItems = cvDraw.eduItems ? cvDraw.eduItems : [];
+  const initialCvData = cvDraw ? cvDraw : {eduItems : []};
+  // const initialEduItems = cvDraw.eduItems ? cvDraw.eduItems : [];
 
   const [cvData, setCvData] = useState(initialCvData);
   const [cvInfoData, setCvInfoData] = useState(initialCvData);
   const [cvUpdated, setCvUpdated] = useState(false);
-  const [eduItems, setEduItems] = useState(initialEduItems);
+  // const [eduItems, setEduItems] = useState(initialEduItems);
 
   const updateCvPreview = () => {
-    setCvData({...cvInfoData})
+    setCvData({ ...cvInfoData });
     setCvUpdated(true);
     setTimeout(() => setCvUpdated(false), 1000);
   };
 
   const clearCvData = () => {
-    setCvData({});
-    setCvInfoData({});
-    storage.updateDraw({});
+    setCvData(initialCvData);
+    setCvInfoData(initialCvData);
+    storage.updateDraw(initialCvData);
     storage.update();
   };
 
   const setFormData = (formData) => {
     const cvDataObj = Object.fromEntries(formData.entries());
-    cvDataObj.eduItems = eduItems;
+    cvDataObj.eduItems = cvInfoData.eduItems
+    // cvDataObj.eduItems = eduItems; // ############
     // setCvData(cvDataObj);
     setCvInfoData(cvDataObj);
     return cvDataObj;
@@ -57,26 +58,29 @@ function App() {
     eduItem["study-date-to"] = formData.get("study-date-to");
     eduItem["key"] = crypto.randomUUID();
 
-    setEduItems([...eduItems, eduItem]);
+    const newItems = [...cvInfoData.eduItems, eduItem];
+    // setEduItems(newItems);
+    // Using an updater to display edu items on preview
+    setCvInfoData({ ...cvInfoData, eduItems: newItems }); // ############
   };
 
   const removeEduItem = (index) => {
-    const copyArr = [...eduItems]
-    copyArr.splice(index, 1)
-    setEduItems(copyArr);
-  }
-  
+    const newItems = [...cvInfoData.eduItems];
+    newItems.splice(index, 1);
+    // setEduItems(newItems);
+    setCvInfoData({ ...cvInfoData, eduItems: newItems }); // ############
+  };
+
   const saveEditEduItem = (e, index) => {
     const formData = new FormData(e.target.form);
     // const cvDataObj = Object.fromEntries(formData.entries());
-
-    const eduItem = eduItems[index];
+    const newItems = [...cvInfoData.eduItems]
+    const eduItem = newItems[index]; // ############
     eduItem["school"] = formData.get("school");
     eduItem["study-title"] = formData.get("study-title");
     eduItem["study-date-from"] = formData.get("study-date-from");
     eduItem["study-date-to"] = formData.get("study-date-to");
-
-    setEduItems([...eduItems]);
+    setCvInfoData({ ...cvInfoData, eduItems: newItems }); // ############
   };
 
   return (
@@ -89,8 +93,8 @@ function App() {
           addEduItem={addEduItem}
           saveEditEduItem={saveEditEduItem}
           removeEduItem={removeEduItem}
-          setFormData={setFormData}
-          eduItems={eduItems}
+          setFormData={setFormData} 
+          eduItems={cvInfoData.eduItems} // Is it needed a eduItems prop?
           cvUpdated={cvUpdated}
           cvData={cvInfoData}
         ></CvInfo>

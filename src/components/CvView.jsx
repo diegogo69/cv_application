@@ -26,7 +26,8 @@ function CvGeneralItem({ cvData }) {
 }
 
 function CvEducationItem({ cvData }) {
-  const eduItems = cvData.eduItems.length === 0 ? [{}] : cvData.eduItems;
+  const notEduItems = (!cvData.eduItems || cvData.eduItems.length === 0)
+  const eduItems =  notEduItems ? [{}] : cvData.eduItems;
 
   return (
     <ul>
