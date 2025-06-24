@@ -11,12 +11,10 @@ storage.parse();
 function App() {
   const cvDraw = storage.loadDraw();
   const initialCvData = cvDraw ? cvDraw : {eduItems : []};
-  // const initialEduItems = cvDraw.eduItems ? cvDraw.eduItems : [];
 
   const [cvData, setCvData] = useState(initialCvData);
   const [cvInfoData, setCvInfoData] = useState(initialCvData);
   const [cvUpdated, setCvUpdated] = useState(false);
-  // const [eduItems, setEduItems] = useState(initialEduItems);
 
   const updateCvPreview = () => {
     setCvData({ ...cvInfoData });
@@ -34,7 +32,6 @@ function App() {
   const setFormData = (formData) => {
     const cvDataObj = Object.fromEntries(formData.entries());
     cvDataObj.eduItems = cvInfoData.eduItems
-    // cvDataObj.eduItems = eduItems; // ############
     // setCvData(cvDataObj);
     setCvInfoData(cvDataObj);
     return cvDataObj;
@@ -59,15 +56,12 @@ function App() {
     eduItem["key"] = crypto.randomUUID();
 
     const newItems = [...cvInfoData.eduItems, eduItem];
-    // setEduItems(newItems);
-    // Using an updater to display edu items on preview
     setCvInfoData({ ...cvInfoData, eduItems: newItems }); // ############
   };
 
   const removeEduItem = (index) => {
     const newItems = [...cvInfoData.eduItems];
     newItems.splice(index, 1);
-    // setEduItems(newItems);
     setCvInfoData({ ...cvInfoData, eduItems: newItems }); // ############
   };
 
