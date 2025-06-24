@@ -12,7 +12,7 @@ function App() {
   const cvDraw = storage.loadDraw();
   const initialCvData = cvDraw ? cvDraw : {};
   const initialEduItems = cvDraw.eduItems ? cvDraw.eduItems : [];
-  
+
   const [cvData, setCvData] = useState(initialCvData);
   const [cvInfoData, setCvInfoData] = useState(initialCvData);
   const [cvUpdated, setCvUpdated] = useState(false);

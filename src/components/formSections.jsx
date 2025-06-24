@@ -207,7 +207,7 @@ function EducationalInfo({
               Cancel
             </button>
             <button type="submit" onClick={handleSaveEditEdu}>
-              Save
+              Edit
             </button>
           </>
         )}

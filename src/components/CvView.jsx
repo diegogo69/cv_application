@@ -26,14 +26,22 @@ function CvGeneralItem({ cvData }) {
 }
 
 function CvEducationItem({ cvData }) {
+  const eduItems = cvData.eduItems.length === 0 ? [{}] : cvData.eduItems;
+
   return (
     <ul>
-      <li>{cvData["study-title"] || "School title"}</li>
-      <li>{cvData.school || "School"}</li>
-      <li>
-        {cvData["study-date-from"] || "Jun, 2025"} -{" "}
-        {cvData["study-date-to"] || "present"}
-      </li>
+      {eduItems.map((eduItem) => {
+        return (
+          <li key={eduItem.key}>
+            <div>{eduItem["study-title"] || "School title"}</div>
+            <div>{eduItem["school"] || "School"}</div>
+            <div>
+              {eduItem["study-date-from"] || "Jun, 2025"} -{" "}
+              {eduItem["study-date-to"] || "present"}
+            </div>
+          </li>
+        );
+      })}
     </ul>
   );
 }
@@ -57,7 +65,7 @@ export default function CvView({ cvData, cvUpdated }) {
   console.log(Object.entries(cvData));
   return (
     <div className="cv-viewer">
-      <div className={'cv-view' + (cvUpdated ? " cv-updated" : '')}>
+      <div className={"cv-view" + (cvUpdated ? " cv-updated" : "")}>
         <section className="cv-general">
           <h1>{cvData.name || "Your name goes here"}</h1>
           <CvGeneralItem cvData={cvData} />

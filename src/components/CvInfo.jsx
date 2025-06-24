@@ -53,7 +53,7 @@ export default function CvInfo({
           form={id}
           disabled={cvUpdated}
         >
-          {cvUpdated ? "Updating..." : "Update preview"}
+          {cvUpdated ? "Updating" : "Save draw"}
         </button>
       </div>
     </div>
