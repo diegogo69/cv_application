@@ -1,5 +1,6 @@
 import { useId } from "react";
 import { useState } from "react";
+import { isEmptyObject } from "../handlers";
 
 function GeneralInfo({ cvData }) {
   const { name, email, tel } = cvData;
@@ -44,14 +45,10 @@ function EducationalInfo({
   eduItems,
   setFormData,
 }) {
-  const id = useId();
-  const ids = {
-    school: id + "-school",
-    studyTitle: id + "-study-title",
-    studyDateFrom: id + "-study-date-from",
-    studyDateTo: id + "-study-date-to",
-  };
   const [errMsgs, setErrMsgs] = useState({});
+  const [defaultValues, setDefaultValues] = useState(cvData);
+  const [editItem, setEditItem] = useState({});
+
   const inputNames = [
     "school",
     "study-title",
@@ -59,15 +56,20 @@ function EducationalInfo({
     "study-date-to",
   ];
 
-  const [defaultValues, setDefaultValues] = useState(cvData);
-  const [editItem, setEditItem] = useState(null);
+  const id = useId();
+  const ids = {
+    school: id + "-school",
+    studyTitle: id + "-study-title",
+    studyDateFrom: id + "-study-date-from",
+    studyDateTo: id + "-study-date-to",
+  };
 
-  const selectEduItem = (e, index) => {
+  const selectEduItem = (e, index, key) => {
     const form = e.target.closest("form");
     const formData = new FormData(form);
     setFormData(formData);
     setDefaultValues(eduItems[index]);
-    if (editItem != index) setEditItem(null);
+    if (editItem.key != key) setEditItem({});
     form.reset();
   };
 
@@ -90,22 +92,22 @@ function EducationalInfo({
     addEduItem(formData);
   };
 
-  const handleRemoveEdu = (e, index) => {
+  const handleRemoveEdu = (e, index, key) => {
     e.stopPropagation();
     removeEduItem(index);
-    if (editItem == index) setEditItem(null);
+    if (editItem.key == key) setEditItem({});
   };
 
-  const handleEditEdu = (e, index) => {
+  const handleEditEdu = (e, index, key) => {
     e.stopPropagation();
-    selectEduItem(e, index);
-    setEditItem(index);
+    selectEduItem(e, index, key);
+    setEditItem({index, key});
   };
 
   const handleSaveEditEdu = (e) => {
     e.preventDefault();
-    saveEditEduItem(e, editItem);
-    setEditItem(null);
+    saveEditEduItem(e, editItem.index);
+    setEditItem({});
   };
 
   return (
@@ -161,20 +163,20 @@ function EducationalInfo({
             <div
               key={eduItem.key}
               className="info-item"
-              onClick={(e) => selectEduItem(e, index)}
+              onClick={(e) => selectEduItem(e, index, eduItem.key)}
             >
               <header>
                 {eduItem["study-title"]}
                 <div className="item-btns">
                   <button
                     type="button"
-                    onClick={(e) => handleEditEdu(e, index)}
+                    onClick={(e) => handleEditEdu(e, index, eduItem.key)}
                   >
                     Edit
                   </button>
                   <button
                     type="button"
-                    onClick={(e) => handleRemoveEdu(e, index)}
+                    onClick={(e) => handleRemoveEdu(e, index, eduItem.key)}
                   >
                     Rem
                   </button>
@@ -189,7 +191,7 @@ function EducationalInfo({
         })}
       </div>
       <div className="btn-wrapper">
-        {editItem == null ? (
+        {isEmptyObject(editItem) ? (
           <button type="submit" onClick={handleAddEdu}>
             Add
           </button>

@@ -42,4 +42,8 @@ if (storageAvailable("localStorage"))
     },
   };
 
-export { storage };
+const isEmptyObject = (obj) => {
+  return Object.keys(obj).length === 0 && obj.constructor === Object;
+}
+
+export { storage, isEmptyObject };
