@@ -51,6 +51,14 @@ function EducationalInfo({
     studyDateFrom: id + "-study-date-from",
     studyDateTo: id + "-study-date-to",
   };
+  const [errMsgs, setErrMsgs] = useState({});
+  const inputNames = [
+    "school",
+    "study-title",
+    "study-date-from",
+    "study-date-to",
+  ];
+
   const [defaultValues, setDefaultValues] = useState(cvData);
   const [editItem, setEditItem] = useState(null);
 
@@ -61,13 +69,26 @@ function EducationalInfo({
     setDefaultValues(eduItems[index]);
     if (editItem != index) setEditItem(null);
     form.reset();
-  }
+  };
 
   const handleAddEdu = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target.form);
-    addEduItem(formData)
-  }
+    let isValid = true;
+    const errors = {};
+    inputNames.forEach((name) => {
+      const input = formData.get(name);
+      if (!input) {
+        errors[name] = true;
+        isValid = false;
+      } else {
+        errors[name] = false;
+      }
+    });
+    setErrMsgs({ ...errors });
+    if (!isValid) return;
+    addEduItem(formData);
+  };
 
   const handleRemoveEdu = (e, index) => {
     e.stopPropagation();
@@ -99,6 +120,7 @@ function EducationalInfo({
             id={ids.school}
             defaultValue={defaultValues["school"]}
           />
+          <span>{errMsgs["school"] ? "A school name is required" : ""}</span>
         </li>
         <li>
           <label htmlFor={ids.studyTitle}>Study title:</label>
@@ -108,6 +130,7 @@ function EducationalInfo({
             id={ids.studyTitle}
             defaultValue={defaultValues["study-title"]}
           />
+          {errMsgs["study-title"] && <span>A study title is required</span>}
         </li>
         <li>
           <label htmlFor={ids.studyDateFrom}>Start date:</label>
@@ -117,6 +140,9 @@ function EducationalInfo({
             id={ids.studyDateFrom}
             defaultValue={defaultValues["study-date-from"]}
           />
+          {errMsgs["study-date-from"] && (
+            <span>A starting date is required</span>
+          )}
         </li>
         <li>
           <label htmlFor={ids.studyDateTo}>End date:</label>
@@ -126,6 +152,7 @@ function EducationalInfo({
             id={ids.studyDateTo}
             defaultValue={defaultValues["study-date-to"]}
           />
+          {errMsgs["study-date-to"] && <span>An end date is required</span>}
         </li>
       </ul>
       <div className="info-items">
@@ -139,10 +166,16 @@ function EducationalInfo({
               <header>
                 {eduItem["study-title"]}
                 <div className="item-btns">
-                  <button type="button" onClick={(e) => handleEditEdu(e, index)}>
+                  <button
+                    type="button"
+                    onClick={(e) => handleEditEdu(e, index)}
+                  >
                     Edit
                   </button>
-                  <button type="button" onClick={(e) => handleRemoveEdu(e, index)}>
+                  <button
+                    type="button"
+                    onClick={(e) => handleRemoveEdu(e, index)}
+                  >
                     Rem
                   </button>
                 </div>

@@ -45,13 +45,13 @@ function App() {
   };
 
   const addEduItem = (formData) => {
-    const cvDataObj = Object.fromEntries(formData.entries());
+    // const cvDataObj = Object.fromEntries(formData.entries());
 
     const eduItem = {};
-    eduItem["school"] = cvDataObj["school"];
-    eduItem["study-title"] = cvDataObj["study-title"];
-    eduItem["study-date-from"] = cvDataObj["study-date-from"];
-    eduItem["study-date-to"] = cvDataObj["study-date-to"];
+    eduItem["school"] = formData.get("school");
+    eduItem["study-title"] = formData.get("study-title");
+    eduItem["study-date-from"] = formData.get("study-date-from");
+    eduItem["study-date-to"] = formData.get("study-date-to");
     eduItem["key"] = crypto.randomUUID();
 
     setEduItems([...eduItems, eduItem]);
