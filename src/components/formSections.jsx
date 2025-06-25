@@ -73,6 +73,28 @@ const selectInfoItem = ({
   form.reset();
 };
 
+const handleAddInfoItem = ({ e, inputNames, setErrMsgs, addEduItem }) => {
+  e.preventDefault();
+  const formData = new FormData(e.target.form);
+  let isValid = true;
+  const errors = {};
+
+  inputNames.forEach((name) => {
+    const input = formData.get(name);
+    if (!input) {
+      errors[name] = true;
+      isValid = false;
+    } else {
+      errors[name] = false;
+    }
+  });
+
+  setErrMsgs({ ...errors });
+  if (!isValid) return;
+
+  addEduItem(formData);
+};
+
 function EducationalInfo({
   cvData,
   addEduItem,
@@ -100,28 +122,6 @@ function EducationalInfo({
     studyTitle: id + "-study-title",
     studyDateFrom: id + "-study-date-from",
     studyDateTo: id + "-study-date-to",
-  };
-
-  const handleAddEdu = (e) => {
-    e.preventDefault();
-    const formData = new FormData(e.target.form);
-    let isValid = true;
-    const errors = {};
-
-    inputNames.forEach((name) => {
-      const input = formData.get(name);
-      if (!input) {
-        errors[name] = true;
-        isValid = false;
-      } else {
-        errors[name] = false;
-      }
-    });
-
-    setErrMsgs({ ...errors });
-    if (!isValid) return;
-
-    addEduItem(formData);
   };
 
   const handleRemoveEdu = (e, index, key) => {
@@ -203,7 +203,15 @@ function EducationalInfo({
               key={eduItem.key}
               className="info-item"
               onClick={(e) =>
-                selectInfoItem({e, index, key, eduItems, editItem, setEditItem, setFormData})
+                selectInfoItem({
+                  e,
+                  index,
+                  key,
+                  eduItems,
+                  editItem,
+                  setEditItem,
+                  setFormData,
+                })
               }
             >
               <header>{eduItem["study-title"]}</header>
@@ -233,7 +241,12 @@ function EducationalInfo({
       </div>
       <div className="btn-wrapper">
         {isEmptyObject(editItem.edu) ? (
-          <button type="submit" onClick={handleAddEdu}>
+          <button
+            type="submit"
+            onClick={(e) =>
+              handleAddInfoItem({ e, inputNames, setErrMsgs, addEduItem })
+            }
+          >
             Add
           </button>
         ) : (
