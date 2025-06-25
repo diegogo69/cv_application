@@ -170,6 +170,18 @@ function EducationalInfo({
     studyDateTo: id + "-study-date-to",
   };
 
+  const handlersArgs = {
+    eduItems,
+    editItem,
+    setEditItem,
+    inputNames,
+    setErrMsgs,
+    setFormData,
+    addEduItem,
+    removeEduItem,
+    saveEditEduItem,
+  };
+
   return (
     <section>
       <h2>Educational Info</h2>
@@ -226,15 +238,7 @@ function EducationalInfo({
               key={eduItem.key}
               className="info-item"
               onClick={(e) =>
-                selectInfoItem({
-                  e,
-                  index,
-                  key,
-                  eduItems,
-                  editItem,
-                  setEditItem,
-                  setFormData,
-                })
+                selectInfoItem({ e, index, key, ...handlersArgs })
               }
             >
               <header>{eduItem["study-title"]}</header>
@@ -247,15 +251,7 @@ function EducationalInfo({
                   <button
                     type="button"
                     onClick={(e) =>
-                      handleEditInfoItem({
-                        e,
-                        index,
-                        key,
-                        eduItems,
-                        editItem,
-                        setEditItem,
-                        setFormData,
-                      })
+                      handleEditInfoItem({ e, index, key, ...handlersArgs })
                     }
                   >
                     {EDIT_ITEM_SVG}
@@ -263,14 +259,7 @@ function EducationalInfo({
                   <button
                     type="button"
                     onClick={(e) =>
-                      handleRemoveInfoItem({
-                        e,
-                        index,
-                        key,
-                        removeEduItem,
-                        editItem,
-                        setEditItem,
-                      })
+                      handleRemoveInfoItem({ e, index, key, ...handlersArgs })
                     }
                   >
                     {REM_ITEM_SVG}
@@ -285,9 +274,7 @@ function EducationalInfo({
         {isEmptyObject(editItem.edu) ? (
           <button
             type="submit"
-            onClick={(e) =>
-              handleAddInfoItem({ e, inputNames, setErrMsgs, addEduItem })
-            }
+            onClick={(e) => handleAddInfoItem({ e, ...handlersArgs })}
           >
             Add
           </button>
@@ -295,20 +282,13 @@ function EducationalInfo({
           <>
             <button
               type="button"
-              onClick={(e) => cancelSaveEditItem({ e, setEditItem, editItem })}
+              onClick={(e) => cancelSaveEditItem({ e, ...handlersArgs })}
             >
               Cancel
             </button>
             <button
               type="submit"
-              onClick={(e) =>
-                handleSaveEditItem({
-                  e,
-                  editItem,
-                  setEditItem,
-                  saveEditEduItem,
-                })
-              }
+              onClick={(e) => handleSaveEditItem({ e, ...handlersArgs })}
             >
               Edit
             </button>
