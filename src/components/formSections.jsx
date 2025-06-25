@@ -108,6 +108,28 @@ const handleRemoveInfoItem = ({
   if (editItem.edu.key == key) setEditItem({ ...editItem, edu: {} });
 };
 
+const handleEditInfoItem = ({
+  e,
+  index,
+  key,
+  eduItems,
+  editItem,
+  setEditItem,
+  setFormData,
+}) => {
+  e.stopPropagation();
+  selectInfoItem({
+    e,
+    index,
+    key,
+    eduItems,
+    editItem,
+    setEditItem,
+    setFormData,
+  });
+  setEditItem({ ...editItem, edu: { index, key } });
+};
+
 function EducationalInfo({
   cvData,
   addEduItem,
@@ -135,12 +157,6 @@ function EducationalInfo({
     studyTitle: id + "-study-title",
     studyDateFrom: id + "-study-date-from",
     studyDateTo: id + "-study-date-to",
-  };
-
-  const handleEditEdu = (e, index, key) => {
-    e.stopPropagation();
-    selectInfoItem(e, index, key);
-    setEditItem({ ...editItem, edu: { index, key } });
   };
 
   const cancelSaveEditEdu = (e) => {
@@ -230,7 +246,17 @@ function EducationalInfo({
                 <div className="item-btns">
                   <button
                     type="button"
-                    onClick={(e) => handleEditEdu(e, index, eduItem.key)}
+                    onClick={(e) =>
+                      handleEditInfoItem({
+                        e,
+                        index,
+                        key,
+                        eduItems,
+                        editItem,
+                        setEditItem,
+                        setFormData,
+                      })
+                    }
                   >
                     {EDIT_ITEM_SVG}
                   </button>
