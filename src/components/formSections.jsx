@@ -50,6 +50,29 @@ function GeneralInfo({ cvData }) {
   );
 }
 
+const selectInfoItem = ({
+  e,
+  index,
+  key,
+  eduItems,
+  editItem,
+  setEditItem,
+  setFormData,
+}) => {
+  const form = e.target.closest("form");
+  const formData = new FormData(form);
+  const formEntries = Object.fromEntries(formData.entries());
+
+  Object.entries(eduItems[index]).forEach(([key, value]) => {
+    formEntries[key] = value;
+  });
+
+  if (editItem.edu.key != key) setEditItem({ ...editItem, edu: {} });
+
+  setFormData(formEntries);
+  form.reset();
+};
+
 function EducationalInfo({
   cvData,
   addEduItem,
@@ -79,21 +102,6 @@ function EducationalInfo({
     studyDateTo: id + "-study-date-to",
   };
 
-  const selectEduItem = (e, index, key) => {
-    const form = e.target.closest("form");
-    const formData = new FormData(form);
-    const formEntries = Object.fromEntries(formData.entries());
-
-    Object.entries(eduItems[index]).forEach(([key, value]) => {
-      formEntries[key] = value;
-    });
-
-    if (editItem.edu.key != key) setEditItem({ ...editItem, edu: {} });
-
-    setFormData(formEntries);
-    form.reset();
-  };
-
   const handleAddEdu = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target.form);
@@ -112,6 +120,7 @@ function EducationalInfo({
 
     setErrMsgs({ ...errors });
     if (!isValid) return;
+
     addEduItem(formData);
   };
 
@@ -123,7 +132,7 @@ function EducationalInfo({
 
   const handleEditEdu = (e, index, key) => {
     e.stopPropagation();
-    selectEduItem(e, index, key);
+    selectInfoItem(e, index, key);
     setEditItem({ ...editItem, edu: { index, key } });
   };
 
@@ -131,6 +140,7 @@ function EducationalInfo({
     e.preventDefault();
     setEditItem({ ...editItem, edu: {} });
   };
+
   const handleSaveEditEdu = (e) => {
     e.preventDefault();
     saveEditEduItem(e, editItem.edu.index);
@@ -186,11 +196,15 @@ function EducationalInfo({
       </ul>
       <div className="info-items">
         {eduItems.map((eduItem, index) => {
+          const key = eduItem.key;
+
           return (
             <div
               key={eduItem.key}
               className="info-item"
-              onClick={(e) => selectEduItem(e, index, eduItem.key)}
+              onClick={(e) =>
+                selectInfoItem({e, index, key, eduItems, editItem, setEditItem, setFormData})
+              }
             >
               <header>{eduItem["study-title"]}</header>
               <div>{eduItem["school"]}</div>
