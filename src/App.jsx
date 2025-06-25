@@ -10,7 +10,8 @@ storage.parse();
 
 function App() {
   const cvDraw = storage.loadDraw();
-  const initialCvData = cvDraw ? cvDraw : { eduItems: [] };
+  const cvEmpty = { eduItems: [] };
+  const initialCvData = cvDraw ? cvDraw : cvEmpty;
 
   const [cvData, setCvData] = useState(initialCvData);
   const [cvInfoData, setCvInfoData] = useState(initialCvData);
@@ -24,9 +25,9 @@ function App() {
   };
 
   const clearCvData = () => {
-    setCvData(initialCvData);
-    setCvInfoData(initialCvData);
-    storage.updateDraw(initialCvData);
+    setCvData(cvEmpty);
+    setCvInfoData(cvEmpty);
+    storage.updateDraw(cvEmpty);
     storage.update();
   };
 

@@ -27,8 +27,8 @@ export default function CvInfo({
   const handleReset = (e) => {
     e.preventDefault();
     const form = e.target.form;
-    form.reset();
     clearCvData();
+    form.reset();
   };
 
   return (
