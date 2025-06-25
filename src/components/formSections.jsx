@@ -130,6 +130,11 @@ const handleEditInfoItem = ({
   setEditItem({ ...editItem, edu: { index, key } });
 };
 
+const cancelSaveEditItem = ({ e, setEditItem, editItem }) => {
+  e.preventDefault();
+  setEditItem({ ...editItem, edu: {} });
+};
+
 function EducationalInfo({
   cvData,
   addEduItem,
@@ -157,11 +162,6 @@ function EducationalInfo({
     studyTitle: id + "-study-title",
     studyDateFrom: id + "-study-date-from",
     studyDateTo: id + "-study-date-to",
-  };
-
-  const cancelSaveEditEdu = (e) => {
-    e.preventDefault();
-    setEditItem({ ...editItem, edu: {} });
   };
 
   const handleSaveEditEdu = (e) => {
@@ -293,7 +293,10 @@ function EducationalInfo({
           </button>
         ) : (
           <>
-            <button type="button" onClick={cancelSaveEditEdu}>
+            <button
+              type="button"
+              onClick={(e) => cancelSaveEditItem({ e, setEditItem, editItem })}
+            >
               Cancel
             </button>
             <button type="submit" onClick={handleSaveEditEdu}>
