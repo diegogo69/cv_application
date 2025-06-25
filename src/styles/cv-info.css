@@ -100,22 +100,28 @@
     min-width: 10.5em;
 }
 
+.cv-info .info-item button:hover,
 .cv-info .btn-wrapper button {
-    padding: .8em 1.2em;
-    border-radius: 1em;
-    border: 3px solid color-mix(in oklab, var(--dark), white 80%);
     background-color: var(--dark);
     transition:
         background-color .2s .025s,
         transform .2s;
-    box-shadow: 0 0 1rem var(--dark-shadow);
     cursor: pointer;
 }
 
+.cv-info .btn-wrapper button {
+    padding: .8em 1.2em;
+    border-radius: 1em;
+    border: 3px solid color-mix(in oklab, var(--dark), white 80%);
+    box-shadow: 0 0 1rem var(--dark-shadow);
+}
+
+.cv-info .info-item button:hover,
 .cv-info .btn-wrapper button:hover {
     background-color: color-mix(in oklab, var(--dark), white 10%)
 }
 
+.cv-info .info-item button:active,
 .cv-info .btn-wrapper button:active {
     transform: scale(102%);
     background-color: color-mix(in oklab, var(--dark), black 15%);
@@ -138,5 +144,24 @@
     border: 3px solid color-mix(in oklab, var(--dark), white 80%);
     border-radius: .5rem;
     padding: .5rem
+}
 
+.cv-info .info-item .item-btns {
+    display: flex;
+    justify-content: end;
+    gap: .4rem;
+}
+
+.cv-info .info-item button {
+    padding: .4rem;
+    background-color: inherit;
+    border: none;
+    border-radius: .2rem;
+    display: grid;
+    place-content: center;
+}
+
+.cv-info .info-item button svg {
+    height: 1rem;
+    fill: var(--light)
 }
