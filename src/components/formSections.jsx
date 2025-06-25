@@ -95,6 +95,19 @@ const handleAddInfoItem = ({ e, inputNames, setErrMsgs, addEduItem }) => {
   addEduItem(formData);
 };
 
+const handleRemoveInfoItem = ({
+  e,
+  index,
+  key,
+  removeEduItem,
+  editItem,
+  setEditItem,
+}) => {
+  e.stopPropagation();
+  removeEduItem(index);
+  if (editItem.edu.key == key) setEditItem({ ...editItem, edu: {} });
+};
+
 function EducationalInfo({
   cvData,
   addEduItem,
@@ -122,12 +135,6 @@ function EducationalInfo({
     studyTitle: id + "-study-title",
     studyDateFrom: id + "-study-date-from",
     studyDateTo: id + "-study-date-to",
-  };
-
-  const handleRemoveEdu = (e, index, key) => {
-    e.stopPropagation();
-    removeEduItem(index);
-    if (editItem.edu.key == key) setEditItem({ ...editItem, edu: {} });
   };
 
   const handleEditEdu = (e, index, key) => {
@@ -229,7 +236,16 @@ function EducationalInfo({
                   </button>
                   <button
                     type="button"
-                    onClick={(e) => handleRemoveEdu(e, index, eduItem.key)}
+                    onClick={(e) =>
+                      handleRemoveInfoItem({
+                        e,
+                        index,
+                        key,
+                        removeEduItem,
+                        editItem,
+                        setEditItem,
+                      })
+                    }
                   >
                     {REM_ITEM_SVG}
                   </button>
