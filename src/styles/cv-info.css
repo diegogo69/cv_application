@@ -130,6 +130,12 @@
 
 .cv-info .info-items {
     display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.cv-info .info-items-wrapper {
+    display: flex;
     flex-wrap: nowrap;
     gap: 1rem;
     overflow-x: auto;
@@ -144,6 +150,10 @@
     border: 3px solid color-mix(in oklab, var(--dark), white 80%);
     border-radius: .5rem;
     padding: .5rem
+}
+
+.cv-info .info-item footer {
+    margin-top: auto;
 }
 
 .cv-info .info-item .item-btns {

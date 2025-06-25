@@ -56,6 +56,7 @@ const selectInfoItem = ({
   key,
   eduItems,
   editItem,
+  setErrMsgs,
   setEditItem,
   setFormData,
 }) => {
@@ -69,15 +70,14 @@ const selectInfoItem = ({
 
   if (editItem.edu.key != key) setEditItem({ ...editItem, edu: {} });
 
+  setErrMsgs({});
   setFormData(formEntries);
   form.reset();
 };
 
-const handleAddInfoItem = ({ e, inputNames, setErrMsgs, addEduItem }) => {
-  e.preventDefault();
-  const formData = new FormData(e.target.form);
-  let isValid = true;
+const validateItemInputs = ({ inputNames, formData }) => {
   const errors = {};
+  let isValid = true;
 
   inputNames.forEach((name) => {
     const input = formData.get(name);
@@ -88,6 +88,26 @@ const handleAddInfoItem = ({ e, inputNames, setErrMsgs, addEduItem }) => {
       errors[name] = false;
     }
   });
+
+  return { errors, isValid };
+};
+
+const handleAddInfoItem = ({
+  e,
+  inputNames,
+  eduItems,
+  setErrMsgs,
+  addEduItem,
+}) => {
+  e.preventDefault();
+
+  if (eduItems.length + 1 > 3) {
+    setErrMsgs({ "info-items-error": true });
+    return;
+  }
+
+  const formData = new FormData(e.target.form);
+  const { errors, isValid } = validateItemInputs({ inputNames, formData });
 
   setErrMsgs({ ...errors });
   if (!isValid) return;
@@ -115,9 +135,11 @@ const handleEditInfoItem = ({
   eduItems,
   editItem,
   setEditItem,
+  setErrMsgs,
   setFormData,
 }) => {
   e.stopPropagation();
+
   selectInfoItem({
     e,
     index,
@@ -125,19 +147,29 @@ const handleEditInfoItem = ({
     eduItems,
     editItem,
     setEditItem,
+    setErrMsgs,
     setFormData,
   });
+
   setEditItem({ ...editItem, edu: { index, key } });
 };
 
-const cancelSaveEditItem = ({ e, setEditItem, editItem }) => {
+const cancelSaveEditItem = ({ e, editItem, setEditItem, setErrMsgs }) => {
   e.preventDefault();
+  setErrMsgs({});
   setEditItem({ ...editItem, edu: {} });
 };
 
-const handleSaveEditItem = ({ e, editItem, setEditItem, saveEditEduItem }) => {
+const handleSaveEditItem = ({ e, inputNames, editItem, setErrMsgs, setEditItem, saveEditEduItem }) => {
   e.preventDefault();
-  saveEditEduItem(e, editItem.edu.index);
+
+  const formData = new FormData(e.target.form);
+  const { errors, isValid } = validateItemInputs({ inputNames, formData });
+
+  setErrMsgs({ ...errors });
+  if (!isValid) return;
+
+  saveEditEduItem(formData, editItem.edu.index);
   setEditItem({ ...editItem, edu: {} });
 };
 
@@ -230,51 +262,56 @@ function EducationalInfo({
         </li>
       </ul>
       <div className="info-items">
-        {eduItems.map((eduItem, index) => {
-          const key = eduItem.key;
-
-          return (
-            <div
-              key={eduItem.key}
-              className="info-item"
-              onClick={(e) =>
-                selectInfoItem({ e, index, key, ...handlersArgs })
-              }
-            >
-              <header>{eduItem["study-title"]}</header>
-              <div>{eduItem["school"]}</div>
-              <div>
-                {eduItem["study-date-from"]} - {eduItem["study-date-to"]}
-              </div>
-              <footer>
-                <div className="item-btns">
-                  <button
-                    type="button"
-                    onClick={(e) =>
-                      handleEditInfoItem({ e, index, key, ...handlersArgs })
-                    }
-                  >
-                    {EDIT_ITEM_SVG}
-                  </button>
-                  <button
-                    type="button"
-                    onClick={(e) =>
-                      handleRemoveInfoItem({ e, index, key, ...handlersArgs })
-                    }
-                  >
-                    {REM_ITEM_SVG}
-                  </button>
+        <div className="info-items-wrapper">
+          {eduItems.map((eduItem, index) => {
+            const key = eduItem.key;
+            return (
+              <div
+                key={eduItem.key}
+                className="info-item"
+                onClick={(e) =>
+                  selectInfoItem({ e, index, key, ...handlersArgs })
+                }
+              >
+                <header>{eduItem["study-title"]}</header>
+                <div>{eduItem["school"]}</div>
+                <div>
+                  {eduItem["study-date-from"]} - {eduItem["study-date-to"]}
                 </div>
-              </footer>
-            </div>
-          );
-        })}
+                <footer>
+                  <div className="item-btns">
+                    <button
+                      type="button"
+                      onClick={(e) =>
+                        handleEditInfoItem({ e, index, key, ...handlersArgs })
+                      }
+                    >
+                      {EDIT_ITEM_SVG}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={(e) =>
+                        handleRemoveInfoItem({ e, index, key, ...handlersArgs })
+                      }
+                    >
+                      {REM_ITEM_SVG}
+                    </button>
+                  </div>
+                </footer>
+              </div>
+            );
+          })}
+        </div>
+        {errMsgs["info-items-error"] && (
+          <span>You can only add up to 3 educational items</span>
+        )}
       </div>
       <div className="btn-wrapper">
         {isEmptyObject(editItem.edu) ? (
           <button
             type="submit"
             onClick={(e) => handleAddInfoItem({ e, ...handlersArgs })}
+            // disabled={cvData.eduItems.length > 2}
           >
             Add
           </button>
