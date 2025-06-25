@@ -10,11 +10,12 @@ storage.parse();
 
 function App() {
   const cvDraw = storage.loadDraw();
-  const initialCvData = cvDraw ? cvDraw : {eduItems : []};
+  const initialCvData = cvDraw ? cvDraw : { eduItems: [] };
 
   const [cvData, setCvData] = useState(initialCvData);
   const [cvInfoData, setCvInfoData] = useState(initialCvData);
   const [cvUpdated, setCvUpdated] = useState(false);
+  const [editItem, setEditItem] = useState({ edu: {} });
 
   const updateCvPreview = () => {
     setCvData({ ...cvInfoData });
@@ -29,12 +30,12 @@ function App() {
     storage.update();
   };
 
-  const setFormData = (formData) => {
-    const cvDataObj = Object.fromEntries(formData.entries());
-    cvDataObj.eduItems = cvInfoData.eduItems
+  const setFormData = (formEntries) => {
+    // const cvDataObj = Object.fromEntries(formData.entries());
+    formEntries.eduItems = cvInfoData.eduItems;
     // setCvData(cvDataObj);
-    setCvInfoData(cvDataObj);
-    return cvDataObj;
+    setCvInfoData(formEntries);
+    return formEntries;
   };
 
   const submitCvInfo = (formData) => {
@@ -68,7 +69,7 @@ function App() {
   const saveEditEduItem = (e, index) => {
     const formData = new FormData(e.target.form);
     // const cvDataObj = Object.fromEntries(formData.entries());
-    const newItems = [...cvInfoData.eduItems]
+    const newItems = [...cvInfoData.eduItems];
     const eduItem = newItems[index]; // ############
     eduItem["school"] = formData.get("school");
     eduItem["study-title"] = formData.get("study-title");
@@ -87,10 +88,12 @@ function App() {
           addEduItem={addEduItem}
           saveEditEduItem={saveEditEduItem}
           removeEduItem={removeEduItem}
-          setFormData={setFormData} 
+          setFormData={setFormData}
           eduItems={cvInfoData.eduItems} // Is it needed a eduItems prop?
           cvUpdated={cvUpdated}
           cvData={cvInfoData}
+          editItem={editItem}
+          setEditItem={setEditItem}
         ></CvInfo>
         <CvView cvData={cvData} cvUpdated={cvUpdated}></CvView>
       </main>

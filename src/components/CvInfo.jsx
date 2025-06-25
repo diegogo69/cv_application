@@ -12,6 +12,8 @@ export default function CvInfo({
   eduItems,
   cvUpdated,
   cvData,
+  editItem,
+  setEditItem,
 }) {
   const id = useId();
 
@@ -40,6 +42,8 @@ export default function CvInfo({
           saveEditEduItem={saveEditEduItem}
           removeEduItem={removeEduItem}
           setFormData={setFormData}
+          editItem={editItem}
+          setEditItem={setEditItem}
         />
         <PracticalExpInfo cvData={cvData} />
       </form>
