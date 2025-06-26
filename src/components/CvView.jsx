@@ -26,8 +26,12 @@ function CvGeneralItem({ cvData }) {
 }
 
 function CvEducationItem({ cvData }) {
-  const notEduItems = (!cvData.eduItems || cvData.eduItems.length === 0)
-  const eduItems =  notEduItems ? [{}] : cvData.eduItems;
+  // const notEduItems = (!cvData.eduItems || cvData.eduItems.length === 0)
+  // const eduItems =  notEduItems ? [{}] : cvData.eduItems;
+  const section = "edu";
+  const notEduItems =
+    !cvData.items[section] || cvData.items[section].length === 0;
+  const eduItems = notEduItems ? [{ key: "key" }] : cvData.items[section];
 
   return (
     <ul>
@@ -48,22 +52,33 @@ function CvEducationItem({ cvData }) {
 }
 
 function CvExperienceItem({ cvData }) {
+  const section = "exp";
+  const notEduItems =
+    !cvData.items[section] || cvData.items[section].length === 0;
+  const eduItems = notEduItems ? [{ key: "key" }] : cvData.items[section];
+
   return (
     <ul>
-      <li>{cvData["company-name"] || "Company name"}</li>
-      <li>{cvData["position-title"] || "Position title"}</li>
-      <li>{cvData["position-resp"] || "Main responsabilities"}</li>
-      <li>
-        {cvData["position-date-from"] || "Jun, 2025"} -{" "}
-        {cvData["position-date-to"] || "present"}
-      </li>
+      {eduItems.map((eduItem) => {
+        return (
+          <li key={eduItem.key}>
+            <div>{eduItem["company-name"] || "Company name"}</div>
+            <div>{eduItem["position-title"] || "Position title"}</div>
+            <div>{eduItem["position-resp"] || "Main responsabilities"}</div>
+            <div>
+              {eduItem["position-date-from"] || "Jun, 2025"} -{" "}
+              {eduItem["position-date-to"] || "present"}
+            </div>
+          </li>
+        );
+      })}
     </ul>
   );
 }
 
 export default function CvView({ cvData, cvUpdated }) {
-  console.log(cvData);
-  console.log(Object.entries(cvData));
+  // console.log(cvData);
+  // console.log(Object.entries(cvData));
   return (
     <div className="cv-viewer">
       <div className={"cv-view" + (cvUpdated ? " cv-updated" : "")}>
