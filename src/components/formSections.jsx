@@ -119,7 +119,6 @@ const handleAddInfoItem = ({
 
   const formData = new FormData(e.target.form);
   const itemData = getItemData(inputNames, formData)
-  // console.log(itemData)
   const { errors, isValid } = validateItemData(itemData);
 
   setErrMsgs({ ...errors });
@@ -200,7 +199,9 @@ const handleSaveEditItem = ({
   setErrMsgs({ ...errors });
   if (!isValid) return;
 
-  saveEditEduItem(formData, editItem[section].index);
+  // saveEditEduItem(formData, editItem[section].index);
+  const index = editItem[section].index;
+  saveEditEduItem(itemData, section, index);
   setEditItem({ ...editItem, [section]: {} });
 };
 
