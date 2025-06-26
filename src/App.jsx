@@ -69,8 +69,11 @@ function App() {
   const saveEditEduItem = (itemData, section, index) => {
     // const cvDataObj = Object.fromEntries(formData.entries());
     const newItems = [...cvInfoData.items[section]];
-    newItems[index] = {...newItems[index], ...itemData};
-    setCvInfoData({ ...cvInfoData, items: {...cvInfoData.items, [section]: newItems} }); // ############
+    newItems[index] = { ...newItems[index], ...itemData };
+    setCvInfoData({
+      ...cvInfoData,
+      items: { ...cvInfoData.items, [section]: newItems },
+    });
   };
 
   return (

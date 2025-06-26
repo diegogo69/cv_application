@@ -118,7 +118,7 @@ const handleAddInfoItem = ({
   }
 
   const formData = new FormData(e.target.form);
-  const itemData = getItemData(inputNames, formData)
+  const itemData = getItemData(inputNames, formData);
   const { errors, isValid } = validateItemData(itemData);
 
   setErrMsgs({ ...errors });
@@ -193,13 +193,12 @@ const handleSaveEditItem = ({
   e.preventDefault();
 
   const formData = new FormData(e.target.form);
-  const itemData = getItemData(inputNames, formData)
+  const itemData = getItemData(inputNames, formData);
   const { errors, isValid } = validateItemData(itemData);
 
   setErrMsgs({ ...errors });
   if (!isValid) return;
 
-  // saveEditEduItem(formData, editItem[section].index);
   const index = editItem[section].index;
   saveEditEduItem(itemData, section, index);
   setEditItem({ ...editItem, [section]: {} });
@@ -448,8 +447,8 @@ function PracticalExpInfo({
             id={ids.positionResp}
             defaultValue={cvData["position-resp"]}
           />
+          {errMsgs["position-resp"] && <span>The position responsabilities are required</span>}
         </li>
-
         <li>
           <label htmlFor={ids.positionDateFrom}>Start date:</label>
           <input
@@ -488,7 +487,8 @@ function PracticalExpInfo({
                 <header>{eduItem["position-title"]}</header>
                 <div>{eduItem["company-name"]}</div>
                 <div>
-                  {eduItem["position-date-from"]} - {eduItem["position-date-to"]}
+                  {eduItem["position-date-from"]} -{" "}
+                  {eduItem["position-date-to"]}
                 </div>
                 <footer>
                   <div className="item-btns">
