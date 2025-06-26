@@ -96,9 +96,11 @@
     background-color: var(--dark);
 }
 
+/* 
 .cv-info>.btn-wrapper button[type='submit'] {
     min-width: 10.5em;
 }
+ */
 
 .cv-info .info-item button:hover,
 .cv-info .btn-wrapper button {

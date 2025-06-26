@@ -10,13 +10,13 @@ storage.parse();
 
 function App() {
   const cvDraw = storage.loadDraw();
-  const cvEmpty = { eduItems: [] };
+  const cvEmpty = { items: { edu: [], exp: [] } };
   const initialCvData = cvDraw ? cvDraw : cvEmpty;
 
   const [cvData, setCvData] = useState(initialCvData);
   const [cvInfoData, setCvInfoData] = useState(initialCvData);
   const [cvUpdated, setCvUpdated] = useState(false);
-  const [editItem, setEditItem] = useState({ edu: {} });
+  const [editItem, setEditItem] = useState({ edu: {}, exp: {} });
 
   const updateCvPreview = () => {
     setCvData({ ...cvInfoData });
@@ -47,18 +47,21 @@ function App() {
     updateCvPreview();
   };
 
-  const addEduItem = (formData) => {
+  const addEduItem = (itemData, section) => {
     // const cvDataObj = Object.fromEntries(formData.entries());
 
-    const eduItem = {};
-    eduItem["school"] = formData.get("school");
-    eduItem["study-title"] = formData.get("study-title");
-    eduItem["study-date-from"] = formData.get("study-date-from");
-    eduItem["study-date-to"] = formData.get("study-date-to");
-    eduItem["key"] = crypto.randomUUID();
+    const key = crypto.randomUUID();
+    const eduItem = { ...itemData, key };
+    console.log(eduItem)
+    // eduItem["school"] = itemData.get("school");
+    // eduItem["study-title"] = itemData.get("study-title");
+    // eduItem["study-date-from"] = itemData.get("study-date-from");
+    // eduItem["study-date-to"] = itemData.get("study-date-to");
+    // eduItem["key"] = crypto.randomUUID();
 
-    const newItems = [...cvInfoData.eduItems, eduItem];
-    setCvInfoData({ ...cvInfoData, eduItems: newItems }); // ############
+    const newItems = [...cvInfoData.items[section], eduItem];
+    // setCvInfoData({ ...cvInfoData, eduItems: newItems }); // ############
+    setCvInfoData({ ...cvInfoData, items: { ...cvInfoData.items, [section]: newItems } }); // ############
   };
 
   const removeEduItem = (index) => {
@@ -89,7 +92,6 @@ function App() {
           saveEditEduItem={saveEditEduItem}
           removeEduItem={removeEduItem}
           setFormData={setFormData}
-          eduItems={cvInfoData.eduItems} // Is it needed a eduItems prop?
           cvUpdated={cvUpdated}
           cvData={cvInfoData}
           editItem={editItem}

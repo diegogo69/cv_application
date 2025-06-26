@@ -54,6 +54,7 @@ const selectInfoItem = ({
   e,
   index,
   key,
+  section,
   eduItems,
   editItem,
   setErrMsgs,
@@ -68,24 +69,33 @@ const selectInfoItem = ({
     formEntries[key] = value;
   });
 
-  if (editItem.edu.key != key) setEditItem({ ...editItem, edu: {} });
+  if (editItem[section].key != key) setEditItem({ ...editItem, [section]: {} });
 
   setErrMsgs({});
   setFormData(formEntries);
   form.reset();
 };
 
-const validateItemInputs = ({ inputNames, formData }) => {
+const getItemData = (inputNames, formData) => {
+  const itemData = {};
+
+  inputNames.forEach((inputName) => {
+    itemData[inputName] = formData.get(inputName);
+  });
+
+  return itemData;
+};
+
+const validateItemData = (itemData) => {
   const errors = {};
   let isValid = true;
 
-  inputNames.forEach((name) => {
-    const input = formData.get(name);
-    if (!input) {
-      errors[name] = true;
+  Object.entries(itemData).forEach(([key, value]) => {
+    if (!value) {
+      errors[key] = true;
       isValid = false;
     } else {
-      errors[name] = false;
+      errors[key] = false;
     }
   });
 
@@ -94,6 +104,7 @@ const validateItemInputs = ({ inputNames, formData }) => {
 
 const handleAddInfoItem = ({
   e,
+  section,
   inputNames,
   eduItems,
   setErrMsgs,
@@ -107,31 +118,35 @@ const handleAddInfoItem = ({
   }
 
   const formData = new FormData(e.target.form);
-  const { errors, isValid } = validateItemInputs({ inputNames, formData });
+  const itemData = getItemData(inputNames, formData)
+  // console.log(itemData)
+  const { errors, isValid } = validateItemData(itemData);
 
   setErrMsgs({ ...errors });
   if (!isValid) return;
 
-  addEduItem(formData);
+  addEduItem(itemData, section);
 };
 
 const handleRemoveInfoItem = ({
   e,
   index,
   key,
+  section,
   removeEduItem,
   editItem,
   setEditItem,
 }) => {
   e.stopPropagation();
   removeEduItem(index);
-  if (editItem.edu.key == key) setEditItem({ ...editItem, edu: {} });
+  if (editItem[section].key == key) setEditItem({ ...editItem, [section]: {} });
 };
 
 const handleEditInfoItem = ({
   e,
   index,
   key,
+  section,
   eduItems,
   editItem,
   setEditItem,
@@ -144,6 +159,7 @@ const handleEditInfoItem = ({
     e,
     index,
     key,
+    section,
     eduItems,
     editItem,
     setEditItem,
@@ -151,26 +167,41 @@ const handleEditInfoItem = ({
     setFormData,
   });
 
-  setEditItem({ ...editItem, edu: { index, key } });
+  setEditItem({ ...editItem, [section]: { index, key } });
 };
 
-const cancelSaveEditItem = ({ e, editItem, setEditItem, setErrMsgs }) => {
+const cancelSaveEditItem = ({
+  e,
+  section,
+  editItem,
+  setEditItem,
+  setErrMsgs,
+}) => {
   e.preventDefault();
   setErrMsgs({});
-  setEditItem({ ...editItem, edu: {} });
+  setEditItem({ ...editItem, [section]: {} });
 };
 
-const handleSaveEditItem = ({ e, inputNames, editItem, setErrMsgs, setEditItem, saveEditEduItem }) => {
+const handleSaveEditItem = ({
+  e,
+  section,
+  inputNames,
+  editItem,
+  setErrMsgs,
+  setEditItem,
+  saveEditEduItem,
+}) => {
   e.preventDefault();
 
   const formData = new FormData(e.target.form);
-  const { errors, isValid } = validateItemInputs({ inputNames, formData });
+  const itemData = getItemData(inputNames, formData)
+  const { errors, isValid } = validateItemData(itemData);
 
   setErrMsgs({ ...errors });
   if (!isValid) return;
 
-  saveEditEduItem(formData, editItem.edu.index);
-  setEditItem({ ...editItem, edu: {} });
+  saveEditEduItem(formData, editItem[section].index);
+  setEditItem({ ...editItem, [section]: {} });
 };
 
 function EducationalInfo({
@@ -178,11 +209,12 @@ function EducationalInfo({
   addEduItem,
   saveEditEduItem,
   removeEduItem,
-  eduItems,
   setFormData,
   editItem,
   setEditItem,
 }) {
+  const section = "edu";
+  const eduItems = cvData.items[section];
   const [errMsgs, setErrMsgs] = useState({});
   // const [defaultValues, setDefaultValues] = useState(cvData);
   // const [editItem, setEditItem] = useState({});
@@ -203,6 +235,7 @@ function EducationalInfo({
   };
 
   const handlersArgs = {
+    section,
     eduItems,
     editItem,
     setEditItem,
@@ -336,7 +369,28 @@ function EducationalInfo({
   );
 }
 
-function PracticalExpInfo({ cvData }) {
+function PracticalExpInfo({
+  cvData,
+  addEduItem,
+  saveEditEduItem,
+  removeEduItem,
+  setFormData,
+  editItem,
+  setEditItem,
+}) {
+  const section = "exp";
+  const eduItems = cvData.items[section];
+
+  const inputNames = [
+    "company-name",
+    "position-title",
+    "position-resp",
+    "position-date-from",
+    "position-date-to",
+  ];
+
+  const [errMsgs, setErrMsgs] = useState({});
+
   const id = useId();
   const ids = {
     companyName: id + "-company-name",
@@ -344,6 +398,19 @@ function PracticalExpInfo({ cvData }) {
     positionResp: id + "-position-resp",
     positionDateFrom: id + "-position-date-from",
     positionDateTo: id + "-position-date-to",
+  };
+
+  const handlersArgs = {
+    section,
+    eduItems,
+    editItem,
+    setEditItem,
+    inputNames,
+    setErrMsgs,
+    setFormData,
+    addEduItem,
+    removeEduItem,
+    saveEditEduItem,
   };
 
   return (
@@ -358,6 +425,7 @@ function PracticalExpInfo({ cvData }) {
             id={ids.companyName}
             defaultValue={cvData["company-name"]}
           />
+          {errMsgs["company-name"] && <span>A company name is required</span>}
         </li>
         <li>
           <label htmlFor={ids.positionTitle}>Position title:</label>
@@ -367,6 +435,9 @@ function PracticalExpInfo({ cvData }) {
             id={ids.positionTitle}
             defaultValue={cvData["position-title"]}
           />
+          {errMsgs["position-title"] && (
+            <span>A position title is required</span>
+          )}
         </li>
         <li>
           <label htmlFor={ids.positionResp}>Position responsabilites:</label>
@@ -386,6 +457,9 @@ function PracticalExpInfo({ cvData }) {
             id={ids.positionDateFrom}
             defaultValue={cvData["position-date-from"]}
           />
+          {errMsgs["position-date-from"] && (
+            <span>A starting date is required</span>
+          )}
         </li>
         <li>
           <label htmlFor={ids.positionDateTo}>End date:</label>
@@ -395,8 +469,80 @@ function PracticalExpInfo({ cvData }) {
             id={ids.positionDateTo}
             defaultValue={cvData["position-date-to"]}
           />
+          {errMsgs["position-date-to"] && <span>An end date is required</span>}
         </li>
       </ul>
+      <div className="info-items">
+        <div className="info-items-wrapper">
+          {eduItems.map((eduItem, index) => {
+            const key = eduItem.key;
+            return (
+              <div
+                key={eduItem.key}
+                className="info-item"
+                onClick={(e) =>
+                  selectInfoItem({ e, index, key, ...handlersArgs })
+                }
+              >
+                <header>{eduItem["position-title"]}</header>
+                <div>{eduItem["company-name"]}</div>
+                <div>
+                  {eduItem["position-date-from"]} - {eduItem["position-date-to"]}
+                </div>
+                <footer>
+                  <div className="item-btns">
+                    <button
+                      type="button"
+                      onClick={(e) =>
+                        handleEditInfoItem({ e, index, key, ...handlersArgs })
+                      }
+                    >
+                      {EDIT_ITEM_SVG}
+                    </button>
+                    <button
+                      type="button"
+                      onClick={(e) =>
+                        handleRemoveInfoItem({ e, index, key, ...handlersArgs })
+                      }
+                    >
+                      {REM_ITEM_SVG}
+                    </button>
+                  </div>
+                </footer>
+              </div>
+            );
+          })}
+        </div>
+        {errMsgs["info-items-error"] && (
+          <span>You can only add up to 3 educational items</span>
+        )}
+      </div>
+      <div className="btn-wrapper">
+        {isEmptyObject(editItem.exp) ? (
+          <button
+            type="submit"
+            onClick={(e) => handleAddInfoItem({ e, ...handlersArgs })}
+            // disabled={cvData.eduItems.length > 2}
+          >
+            Add
+          </button>
+        ) : (
+          <>
+            <button
+              type="button"
+              onClick={(e) => cancelSaveEditItem({ e, ...handlersArgs })}
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              onClick={(e) => handleSaveEditItem({ e, ...handlersArgs })}
+            >
+              Edit
+            </button>
+          </>
+        )}
+      </div>
     </section>
   );
 }

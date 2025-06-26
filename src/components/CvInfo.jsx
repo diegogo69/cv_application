@@ -9,7 +9,6 @@ export default function CvInfo({
   saveEditEduItem,
   removeEduItem,
   setFormData,
-  eduItems,
   cvUpdated,
   cvData,
   editItem,
@@ -37,7 +36,6 @@ export default function CvInfo({
         <GeneralInfo cvData={cvData} />
         <EducationalInfo
           cvData={cvData}
-          eduItems={eduItems}
           addEduItem={addEduItem}
           saveEditEduItem={saveEditEduItem}
           removeEduItem={removeEduItem}
@@ -45,7 +43,15 @@ export default function CvInfo({
           editItem={editItem}
           setEditItem={setEditItem}
         />
-        <PracticalExpInfo cvData={cvData} />
+        <PracticalExpInfo
+          cvData={cvData}
+          addEduItem={addEduItem}
+          saveEditEduItem={saveEditEduItem}
+          removeEduItem={removeEduItem}
+          setFormData={setFormData}
+          editItem={editItem}
+          setEditItem={setEditItem}
+        />
       </form>
       <div className="btn-wrapper">
         <button type="reset" form={id} onClick={handleReset}>
