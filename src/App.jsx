@@ -50,7 +50,7 @@ function App() {
 
     const key = crypto.randomUUID();
     const eduItem = { ...itemData, key };
-    console.log(eduItem)
+    console.log(eduItem);
     // eduItem["school"] = itemData.get("school");
     // eduItem["study-title"] = itemData.get("study-title");
     // eduItem["study-date-from"] = itemData.get("study-date-from");
@@ -59,13 +59,19 @@ function App() {
 
     const newItems = [...cvInfoData.items[section], eduItem];
     // setCvInfoData({ ...cvInfoData, eduItems: newItems }); // ############
-    setCvInfoData({ ...cvInfoData, items: { ...cvInfoData.items, [section]: newItems } }); // ############
+    setCvInfoData({
+      ...cvInfoData,
+      items: { ...cvInfoData.items, [section]: newItems },
+    }); // ############
   };
 
-  const removeEduItem = (index) => {
-    const newItems = [...cvInfoData.eduItems];
+  const removeEduItem = (section, index) => {
+    const newItems = [...cvInfoData.items[section]];
     newItems.splice(index, 1);
-    setCvInfoData({ ...cvInfoData, eduItems: newItems }); // ############
+    setCvInfoData({
+      ...cvInfoData,
+      items: { ...cvInfoData.items, [section]: newItems },
+    });
   };
 
   const saveEditEduItem = (formData, index) => {

@@ -50,32 +50,6 @@ function GeneralInfo({ cvData }) {
   );
 }
 
-const selectInfoItem = ({
-  e,
-  index,
-  key,
-  section,
-  eduItems,
-  editItem,
-  setErrMsgs,
-  setEditItem,
-  setFormData,
-}) => {
-  const form = e.target.closest("form");
-  const formData = new FormData(form);
-  const formEntries = Object.fromEntries(formData.entries());
-
-  Object.entries(eduItems[index]).forEach(([key, value]) => {
-    formEntries[key] = value;
-  });
-
-  if (editItem[section].key != key) setEditItem({ ...editItem, [section]: {} });
-
-  setErrMsgs({});
-  setFormData(formEntries);
-  form.reset();
-};
-
 const getItemData = (inputNames, formData) => {
   const itemData = {};
 
@@ -100,6 +74,32 @@ const validateItemData = (itemData) => {
   });
 
   return { errors, isValid };
+};
+
+const selectInfoItem = ({
+  e,
+  index,
+  key,
+  section,
+  eduItems,
+  editItem,
+  setErrMsgs,
+  setEditItem,
+  setFormData,
+}) => {
+  const form = e.target.closest("form");
+  const formData = new FormData(form);
+  const formEntries = Object.fromEntries(formData.entries());
+
+  Object.entries(eduItems[index]).forEach(([key, value]) => {
+    formEntries[key] = value;
+  });
+
+  if (editItem[section].key != key) setEditItem({ ...editItem, [section]: {} });
+
+  setErrMsgs({});
+  setFormData(formEntries);
+  form.reset();
 };
 
 const handleAddInfoItem = ({
@@ -138,7 +138,7 @@ const handleRemoveInfoItem = ({
   setEditItem,
 }) => {
   e.stopPropagation();
-  removeEduItem(index);
+  removeEduItem(section, index);
   if (editItem[section].key == key) setEditItem({ ...editItem, [section]: {} });
 };
 
