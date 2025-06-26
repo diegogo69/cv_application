@@ -32,9 +32,7 @@ function App() {
   };
 
   const setFormData = (formEntries) => {
-    // const cvDataObj = Object.fromEntries(formData.entries());
-    formEntries.eduItems = cvInfoData.eduItems;
-    // setCvData(cvDataObj);
+    formEntries.items = cvInfoData.items;
     setCvInfoData(formEntries);
     return formEntries;
   };
