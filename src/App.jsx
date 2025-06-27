@@ -17,6 +17,7 @@ function App() {
   const [cvInfoData, setCvInfoData] = useState(initialCvData);
   const [cvUpdated, setCvUpdated] = useState(false);
   const [editItem, setEditItem] = useState({ edu: {}, exp: {} });
+  const [errMsgs, setErrMsgs] = useState({ edu: {}, exp: {} });
 
   const updateCvPreview = () => {
     setCvData({ ...cvInfoData });
@@ -76,6 +77,10 @@ function App() {
     });
   };
 
+  const setErrors = ({ errors, section }) => {
+    setErrMsgs({ ...errMsgs, [section]: errors });
+  };
+
   return (
     <>
       <header></header>
@@ -91,6 +96,8 @@ function App() {
           cvData={cvInfoData}
           editItem={editItem}
           setEditItem={setEditItem}
+          errors={errMsgs}
+          setErrors={setErrors}
         ></CvInfo>
         <CvView cvData={cvData} cvUpdated={cvUpdated}></CvView>
       </main>

@@ -83,7 +83,9 @@ const selectInfoItem = ({
   section,
   eduItems,
   editItem,
-  setErrMsgs,
+  // errMsgs,
+  // setErrMsgs,
+  setErrors,
   setEditItem,
   setFormData,
 }) => {
@@ -97,7 +99,8 @@ const selectInfoItem = ({
 
   if (editItem[section].key != key) setEditItem({ ...editItem, [section]: {} });
 
-  setErrMsgs({});
+  // setErrMsgs({});
+  setErrors({ errors: {}, section });
   setFormData(formEntries);
   form.reset();
 };
@@ -107,13 +110,15 @@ const handleAddInfoItem = ({
   section,
   inputNames,
   eduItems,
-  setErrMsgs,
+  setErrors,
   addEduItem,
 }) => {
   e.preventDefault();
 
   if (eduItems.length + 1 > 3) {
-    setErrMsgs({ "info-items-error": true });
+    // setErrMsgs({ "info-items-error": true });
+    const errors = { "info-items-error": true };
+    setErrors({ errors, section });
     return;
   }
 
@@ -121,7 +126,9 @@ const handleAddInfoItem = ({
   const itemData = getItemData(inputNames, formData);
   const { errors, isValid } = validateItemData(itemData);
 
-  setErrMsgs({ ...errors });
+  // setErrMsgs({ ...errors });
+  setErrors({ errors, section });
+
   if (!isValid) return;
 
   addEduItem(itemData, section);
@@ -174,10 +181,11 @@ const cancelSaveEditItem = ({
   section,
   editItem,
   setEditItem,
-  setErrMsgs,
+  setErrors,
 }) => {
   e.preventDefault();
-  setErrMsgs({});
+  // setErrMsgs({});
+  setErrors({ errors: {}, section });
   setEditItem({ ...editItem, [section]: {} });
 };
 
@@ -186,7 +194,7 @@ const handleSaveEditItem = ({
   section,
   inputNames,
   editItem,
-  setErrMsgs,
+  setErrors,
   setEditItem,
   saveEditEduItem,
 }) => {
@@ -196,7 +204,9 @@ const handleSaveEditItem = ({
   const itemData = getItemData(inputNames, formData);
   const { errors, isValid } = validateItemData(itemData);
 
-  setErrMsgs({ ...errors });
+  // setErrMsgs({ ...errors });
+  setErrors({ errors, section });
+
   if (!isValid) return;
 
   const index = editItem[section].index;
@@ -212,10 +222,14 @@ function EducationalInfo({
   setFormData,
   editItem,
   setEditItem,
+  errors,
+  setErrors,
 }) {
   const section = "edu";
   const eduItems = cvData.items[section];
-  const [errMsgs, setErrMsgs] = useState({});
+  const errMsgs = errors[section];
+
+  // const [errMsgs, setErrMsgs] = useState({});
   // const [defaultValues, setDefaultValues] = useState(cvData);
   // const [editItem, setEditItem] = useState({});
 
@@ -240,7 +254,9 @@ function EducationalInfo({
     editItem,
     setEditItem,
     inputNames,
-    setErrMsgs,
+    // errMsgs,
+    // setErrMsgs,
+    setErrors,
     setFormData,
     addEduItem,
     removeEduItem,
@@ -377,9 +393,13 @@ function PracticalExpInfo({
   setFormData,
   editItem,
   setEditItem,
+  errors,
+  setErrors,
 }) {
   const section = "exp";
   const eduItems = cvData.items[section];
+  const errMsgs = errors[section];
+  // const [errMsgs, setErrMsgs] = useState({});
 
   const inputNames = [
     "company-name",
@@ -388,8 +408,6 @@ function PracticalExpInfo({
     "position-date-from",
     "position-date-to",
   ];
-
-  const [errMsgs, setErrMsgs] = useState({});
 
   const id = useId();
   const ids = {
@@ -406,7 +424,7 @@ function PracticalExpInfo({
     editItem,
     setEditItem,
     inputNames,
-    setErrMsgs,
+    setErrors,
     setFormData,
     addEduItem,
     removeEduItem,
@@ -447,7 +465,9 @@ function PracticalExpInfo({
             id={ids.positionResp}
             defaultValue={cvData["position-resp"]}
           />
-          {errMsgs["position-resp"] && <span>The position responsabilities are required</span>}
+          {errMsgs["position-resp"] && (
+            <span>The position responsabilities are required</span>
+          )}
         </li>
         <li>
           <label htmlFor={ids.positionDateFrom}>Start date:</label>

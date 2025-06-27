@@ -13,6 +13,8 @@ export default function CvInfo({
   cvData,
   editItem,
   setEditItem,
+  errors,
+  setErrors,
 }) {
   const id = useId();
 
@@ -42,6 +44,8 @@ export default function CvInfo({
           setFormData={setFormData}
           editItem={editItem}
           setEditItem={setEditItem}
+          errors={errors}
+          setErrors={setErrors}
         />
         <PracticalExpInfo
           cvData={cvData}
@@ -51,6 +55,8 @@ export default function CvInfo({
           setFormData={setFormData}
           editItem={editItem}
           setEditItem={setEditItem}
+          errors={errors}
+          setErrors={setErrors}
         />
       </form>
       <div className="btn-wrapper">
