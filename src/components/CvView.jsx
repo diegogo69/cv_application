@@ -77,7 +77,7 @@ function CvExperienceItem({ cvData }) {
 }
 
 export default function CvView({ cvData, cvUpdated }) {
-  // console.log(cvData);
+  console.log(cvData);
   // console.log(Object.entries(cvData));
   return (
     <div className="cv-viewer">

@@ -22,7 +22,9 @@ export default function CvInfo({
     e.preventDefault();
     const form = e.target.form;
     const formData = new FormData(form);
-    submitCvInfo(formData);
+    const formEntries = Object.fromEntries(formData.entries());
+
+    submitCvInfo(formEntries);
   };
 
   const handleReset = (e) => {

@@ -29,21 +29,40 @@ function GeneralInfo({ cvData }) {
       <h2>General</h2>
       <ul>
         <li>
-          <label htmlFor={ids.name}>Name:</label>
-          <input type="text" name="name" id={ids.name} defaultValue={name} />
+          <label htmlFor={ids.name}>
+            <span aria-label="required">* </span>Name:
+          </label>
+          <input
+            type="text"
+            name="name"
+            id={ids.name}
+            defaultValue={name}
+            required="true"
+          />
         </li>
         <li>
-          <label htmlFor={ids.email}>Email:</label>
+          <label htmlFor={ids.email}>
+            <span aria-label="required">* </span>Email:
+          </label>
           <input
             type="email"
             name="email"
             id={ids.email}
             defaultValue={email}
+            required="true"
           />
         </li>
         <li>
-          <label htmlFor={ids.tel}>Phone number:</label>
-          <input type="tel" name="tel" id={ids.tel} defaultValue={tel} />
+          <label htmlFor={ids.tel}>
+            <span aria-label="required">* </span>Phone number:
+          </label>
+          <input
+            type="tel"
+            name="tel"
+            id={ids.tel}
+            defaultValue={tel}
+            required="true"
+          />
         </li>
       </ul>
     </section>
@@ -268,44 +287,56 @@ function EducationalInfo({
       <h2>Educational Info</h2>
       <ul>
         <li>
-          <label htmlFor={ids.school}>School name:</label>
+          <label htmlFor={ids.school}>
+            <span aria-label="required">* </span>School name:
+          </label>
           <input
             type="text"
             name="school"
             id={ids.school}
             defaultValue={cvData["school"]}
+            className={errMsgs["school"] ? "input-invalid" : ""}
           />
           <span>{errMsgs["school"] ? "A school name is required" : ""}</span>
         </li>
         <li>
-          <label htmlFor={ids.studyTitle}>Study title:</label>
+          <label htmlFor={ids.studyTitle}>
+            <span aria-label="required">* </span>Study title:
+          </label>
           <input
             type="text"
             name="study-title"
             id={ids.studyTitle}
             defaultValue={cvData["study-title"]}
+            className={errMsgs["study-title"] ? "input-invalid" : ""}
           />
           {errMsgs["study-title"] && <span>A study title is required</span>}
         </li>
         <li>
-          <label htmlFor={ids.studyDateFrom}>Start date:</label>
+          <label htmlFor={ids.studyDateFrom}>
+            <span aria-label="required">* </span>Start date:
+          </label>
           <input
             type="month"
             name="study-date-from"
             id={ids.studyDateFrom}
             defaultValue={cvData["study-date-from"]}
+            className={errMsgs["study-date-from"] ? "input-invalid" : ""}
           />
           {errMsgs["study-date-from"] && (
             <span>A starting date is required</span>
           )}
         </li>
         <li>
-          <label htmlFor={ids.studyDateTo}>End date:</label>
+          <label htmlFor={ids.studyDateTo}>
+            <span aria-label="required">* </span>End date:
+          </label>
           <input
             type="month"
             name="study-date-to"
             id={ids.studyDateTo}
             defaultValue={cvData["study-date-to"]}
+            className={errMsgs["study-date-to"] ? "input-invalid" : ""}
           />
           {errMsgs["study-date-to"] && <span>An end date is required</span>}
         </li>
@@ -331,6 +362,7 @@ function EducationalInfo({
                   <div className="item-btns">
                     <button
                       type="button"
+                      className="item-btn-edit"
                       onClick={(e) =>
                         handleEditInfoItem({ e, index, key, ...handlersArgs })
                       }
@@ -339,6 +371,7 @@ function EducationalInfo({
                     </button>
                     <button
                       type="button"
+                      className="item-btn-rem"
                       onClick={(e) =>
                         handleRemoveInfoItem({ e, index, key, ...handlersArgs })
                       }
@@ -436,58 +469,73 @@ function PracticalExpInfo({
       <h2>Practical Experience</h2>
       <ul>
         <li>
-          <label htmlFor={ids.companyName}>Company name:</label>
+          <label htmlFor={ids.companyName}>
+            <span aria-label="required">* </span>Company name:
+          </label>
           <input
             type="text"
             name="company-name"
             id={ids.companyName}
             defaultValue={cvData["company-name"]}
+            className={errMsgs["company-name"] ? "input-invalid" : ""}
           />
           {errMsgs["company-name"] && <span>A company name is required</span>}
         </li>
         <li>
-          <label htmlFor={ids.positionTitle}>Position title:</label>
+          <label htmlFor={ids.positionTitle}>
+            <span aria-label="required">* </span>Position title:
+          </label>
           <input
             type="text"
             name="position-title"
             id={ids.positionTitle}
             defaultValue={cvData["position-title"]}
+            className={errMsgs["position-title"] ? "input-invalid" : ""}
           />
           {errMsgs["position-title"] && (
             <span>A position title is required</span>
           )}
         </li>
         <li>
-          <label htmlFor={ids.positionResp}>Position responsabilites:</label>
+          <label htmlFor={ids.positionResp}>
+            <span aria-label="required">* </span>Position responsabilites:
+          </label>
           <input
             type="text"
             name="position-resp"
             id={ids.positionResp}
             defaultValue={cvData["position-resp"]}
+            className={errMsgs["position-resp"] ? "input-invalid" : ""}
           />
           {errMsgs["position-resp"] && (
             <span>The position responsabilities are required</span>
           )}
         </li>
         <li>
-          <label htmlFor={ids.positionDateFrom}>Start date:</label>
+          <label htmlFor={ids.positionDateFrom}>
+            <span aria-label="required">* </span>Start date:
+          </label>
           <input
             type="month"
             name="position-date-from"
             id={ids.positionDateFrom}
             defaultValue={cvData["position-date-from"]}
+            className={errMsgs["position-date-from"] ? "input-invalid" : ""}
           />
           {errMsgs["position-date-from"] && (
             <span>A starting date is required</span>
           )}
         </li>
         <li>
-          <label htmlFor={ids.positionDateTo}>End date:</label>
+          <label htmlFor={ids.positionDateTo}>
+            <span aria-label="required">* </span>End date:
+          </label>
           <input
             type="month"
             name="position-date-to"
             id={ids.positionDateTo}
             defaultValue={cvData["position-date-to"]}
+            className={errMsgs["position-date-to"] ? "input-invalid" : ""}
           />
           {errMsgs["position-date-to"] && <span>An end date is required</span>}
         </li>
@@ -514,6 +562,7 @@ function PracticalExpInfo({
                   <div className="item-btns">
                     <button
                       type="button"
+                      className="item-btn-edit"
                       onClick={(e) =>
                         handleEditInfoItem({ e, index, key, ...handlersArgs })
                       }
@@ -522,6 +571,7 @@ function PracticalExpInfo({
                     </button>
                     <button
                       type="button"
+                      className="item-btn-rem"
                       onClick={(e) =>
                         handleRemoveInfoItem({ e, index, key, ...handlersArgs })
                       }

@@ -20,7 +20,6 @@ function App() {
   const [errMsgs, setErrMsgs] = useState({ edu: {}, exp: {} });
 
   const updateCvPreview = () => {
-    setCvData({ ...cvInfoData });
     setCvUpdated(true);
     setTimeout(() => setCvUpdated(false), 1000);
   };
@@ -28,14 +27,17 @@ function App() {
   const clearCvData = () => {
     setCvData(cvEmpty);
     setCvInfoData(cvEmpty);
+    setErrMsgs({ edu: {}, exp: {} })
     storage.updateDraw(cvEmpty);
     storage.update();
   };
 
   const setFormData = (formEntries) => {
-    formEntries.items = cvInfoData.items;
-    setCvInfoData(formEntries);
-    return formEntries;
+    // formEntries.items = cvInfoData.items;
+    const newData = {...formEntries, items: cvInfoData.items}
+    setCvInfoData(newData);
+    setCvData(newData);
+    return newData;
   };
 
   const submitCvInfo = (formData) => {

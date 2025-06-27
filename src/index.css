@@ -14,8 +14,8 @@
     --dark-bg: #fff;
     --dark-surface: #fff;
     --dark-error: #fff;
-
-
+    --danger: #ef4444;
+    /* --danger: #f87171; */
 }
 
 * {

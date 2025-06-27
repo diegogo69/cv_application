@@ -21,7 +21,7 @@
 
 .cv-info form section {
     background-color: var(--dark);
-    border: 3px solid color-mix(in oklab, var(--dark), white 50%);
+    border: 3px solid color-mix(in oklab, var(--dark), white 40%);
     padding: 1.5rem;
     border-radius: 1rem;
     transition:
@@ -30,11 +30,13 @@
 }
 
 .cv-info form section:hover {
+    border: 3px solid color-mix(in oklab, var(--dark), white 50%);
     background-color: color-mix(in oklab, var(--dark), white 2%);
 }
 
 .cv-info form section:focus-within {
     --shadow: color-mix(in oklab, var(--dark), black 70%);
+    border: 3px solid color-mix(in oklab, var(--dark), white 50%);
     background-color: color-mix(in oklab, var(--dark), white 2%);
     box-shadow: 0 0 1rem var(--shadow);
 }
@@ -175,5 +177,26 @@
 
 .cv-info .info-item button svg {
     height: 1rem;
-    fill: var(--light)
+    fill: var(--light);
+    transition: fill .1s;
+}
+
+.cv-info .info-item button.item-btn-rem:hover svg {
+    fill: var(--danger)
+}
+
+.cv-info label > span[aria-label="required"] {
+    color: var(--danger)
+}
+
+.cv-info form input[type='text'].input-invalid,
+.cv-info form input[type='email'].input-invalid,
+.cv-info form input[type='tel'].input-invalid,
+.cv-info form input[type='month'].input-invalid {
+    --border: color-mix(in oklab, var(--danger), white 10%);
+    border: 2px solid var(--border)
+}
+
+.cv-info form li > input + span {
+    font-size: .9em;
 }
