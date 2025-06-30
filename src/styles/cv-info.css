@@ -20,8 +20,8 @@
 }
 
 .cv-info form section {
-    background-color: var(--dark);
-    border: 3px solid color-mix(in oklab, var(--dark), white 40%);
+    background-color: var(--bg-color);
+    border: 3px solid color-mix(in oklab, var(--bg-color), var(--color) 40%);
     padding: 1.5rem;
     border-radius: 1rem;
     transition:
@@ -30,15 +30,14 @@
 }
 
 .cv-info form section:hover {
-    border: 3px solid color-mix(in oklab, var(--dark), white 50%);
-    background-color: color-mix(in oklab, var(--dark), white 2%);
+    border: 3px solid color-mix(in oklab, var(--bg-color), var(--color) 50%);
+    background-color: color-mix(in oklab, var(--bg-color), var(--color) 2%);
 }
 
 .cv-info form section:focus-within {
-    --shadow: color-mix(in oklab, var(--dark), black 70%);
-    border: 3px solid color-mix(in oklab, var(--dark), white 50%);
-    background-color: color-mix(in oklab, var(--dark), white 2%);
-    box-shadow: 0 0 1rem var(--shadow);
+    border: 3px solid color-mix(in oklab, var(--bg-color), var(--color) 50%);
+    background-color: color-mix(in oklab, var(--bg-color), var(--color) 2%);
+    box-shadow: 0 0 1rem var(--dark-shadow);
 }
 
 .cv-info form section,
@@ -59,7 +58,7 @@
 .cv-info form input[type='tel'],
 .cv-info form input[type='month'] {
     padding: .4em .6em;
-    border: 2px solid color-mix(in oklab, var(--dark), black 10%);
+    border: 2px solid color-mix(in oklab, var(--bg-color), black 10%);
     border-radius: .3em;
     transition:
         border .2s .025s,
@@ -70,7 +69,7 @@
 .cv-info form input[type='email']:hover,
 .cv-info form input[type='tel']:hover,
 .cv-info form input[type='month']:hover {
-    border: 2px solid color-mix(in oklab, var(--dark), white 50%);
+    border: 2px solid color-mix(in oklab, var(--bg-color), var(--color) 50%);
 }
 
 .cv-info form input[type='text']:focus,
@@ -78,8 +77,7 @@
 .cv-info form input[type='tel']:focus,
 .cv-info form input[type='month']:focus {
     outline: none;
-    border: 2px solid color-mix(in oklab, var(--dark), white 80%);
-    /* box-shadow: 0 0 .5rem var(--dark-shadow); */
+    border: 2px solid color-mix(in oklab, var(--bg-color), var(--color) 80%);
 }
 
 .cv-info .btn-wrapper {
@@ -95,7 +93,7 @@
     padding: 1rem 3rem;
     border: none;
     border-radius: 0;
-    background-color: var(--dark);
+    background-color: var(--bg-color);
 }
 
 /* 
@@ -106,7 +104,7 @@
 
 .cv-info .info-item button:hover,
 .cv-info .btn-wrapper button {
-    background-color: var(--dark);
+    background-color: var(--bg-color);
     transition:
         background-color .2s .025s,
         transform .2s;
@@ -116,19 +114,19 @@
 .cv-info .btn-wrapper button {
     padding: .8em 1.2em;
     border-radius: 1em;
-    border: 3px solid color-mix(in oklab, var(--dark), white 80%);
+    border: 3px solid color-mix(in oklab, var(--bg-color), var(--color) 80%);
     box-shadow: 0 0 1rem var(--dark-shadow);
 }
 
 .cv-info .info-item button:hover,
 .cv-info .btn-wrapper button:hover {
-    background-color: color-mix(in oklab, var(--dark), white 10%)
+    background-color: color-mix(in oklab, var(--bg-color), var(--color) 10%)
 }
 
 .cv-info .info-item button:active,
 .cv-info .btn-wrapper button:active {
     transform: scale(102%);
-    background-color: color-mix(in oklab, var(--dark), black 15%);
+    background-color: color-mix(in oklab, var(--bg-color), black 15%);
     box-shadow: 0 0 1rem var(--dark-shadow) inset;
 }
 
@@ -151,7 +149,7 @@
     display: flex;
     flex-direction: column;
     gap: .5rem;
-    border: 3px solid color-mix(in oklab, var(--dark), white 80%);
+    border: 3px solid color-mix(in oklab, var(--bg-color), var(--color) 80%);
     border-radius: .5rem;
     padding: .5rem
 }
@@ -177,7 +175,7 @@
 
 .cv-info .info-item button svg {
     height: 1rem;
-    fill: var(--light);
+    fill: var(--color);
     transition: fill .1s;
 }
 
@@ -193,7 +191,7 @@
 .cv-info form input[type='email'].input-invalid,
 .cv-info form input[type='tel'].input-invalid,
 .cv-info form input[type='month'].input-invalid {
-    --border: color-mix(in oklab, var(--danger), white 10%);
+    --border: color-mix(in oklab, var(--danger), var(--color) 10%);
     border: 2px solid var(--border)
 }
 

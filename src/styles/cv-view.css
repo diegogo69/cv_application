@@ -4,8 +4,6 @@
 
 .cv-viewer {
     padding: 2rem;
-    /* display: grid; */
-    /* place-content: center; */
 }
 
 .cv-view {
@@ -14,18 +12,13 @@
     width: 595; height: 842;
 
     padding: 2rem;
-    border: 3px solid var(--light);
+    border: 3px solid var(--color);
     box-shadow: 0 0 2rem .2rem var(--dark-shadow);
 
     display: flex;
     flex-direction: column;
     gap: 2rem;
-    fill: white;
-    /* stroke: white; */
-
-    /* transition:
-        transform 1s,
-        box-shadow .2s; */
+    fill: var(--color);
 }
 
 .cv-view .cv-general {
@@ -89,7 +82,7 @@
     flex-direction: column;
     gap: 1rem;
     padding: 1rem 0;
-    border-top: 1px solid white;
+    border-top: 1px solid var(--color);
 }
 
 .cv-view.cv-updated {
@@ -99,6 +92,6 @@
 
 @keyframes cv-updated {
     to {
-        box-shadow: 0 0 1.6rem .8rem color-mix(in oklab, var(--dark), white 25%);
+        box-shadow: 0 0 1.6rem .8rem color-mix(in oklab, var(--bg-color), var(--color) 25%);
     }
 }
