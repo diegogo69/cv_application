@@ -96,12 +96,6 @@
     background-color: var(--bg-color);
 }
 
-/* 
-.cv-info>.btn-wrapper button[type='submit'] {
-    min-width: 10.5em;
-}
- */
-
 .cv-info .info-item button:hover,
 .cv-info .btn-wrapper button {
     background-color: var(--bg-color);
@@ -183,7 +177,7 @@
     fill: var(--danger)
 }
 
-.cv-info label > span[aria-label="required"] {
+.cv-info label>span[aria-label="required"] {
     color: var(--danger)
 }
 
@@ -195,6 +189,6 @@
     border: 2px solid var(--border)
 }
 
-.cv-info form li > input + span {
+.cv-info form li>input+span {
     font-size: .9em;
 }

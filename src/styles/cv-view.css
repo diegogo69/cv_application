@@ -8,8 +8,8 @@
 
 .cv-view {
     aspect-ratio: 1 / 1.4;
-    /* min-height: 100%; */
-    width: 595; height: 842;
+    width: 595;
+    height: 842;
 
     padding: 2rem;
     border: 3px solid var(--color);
@@ -26,6 +26,7 @@
     flex-direction: column;
     gap: 1rem;
 }
+
 .cv-view .cv-general h1 {
     text-align: center;
 }
@@ -86,7 +87,6 @@
 }
 
 .cv-view.cv-updated {
-    /* transform: scale(101%); */
     animation: .5s ease-in-out 2 alternate cv-updated;
 }
 

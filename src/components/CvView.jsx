@@ -14,7 +14,6 @@ import "../styles/cv-view.css";
   "position-date-from",
   "position-date-to",
 ];
-// {Object.entries(cvData).map(([key, value]) => [key, value])}
 
 function CvGeneralItem({ cvData }) {
   return (
@@ -42,16 +41,14 @@ function CvGeneralItem({ cvData }) {
 }
 
 function CvEducationItem({ cvData }) {
-  // const notEduItems = (!cvData.eduItems || cvData.eduItems.length === 0)
-  // const eduItems =  notEduItems ? [{}] : cvData.eduItems;
   const section = "edu";
-  const notEduItems =
+  const notInfoItems =
     !cvData.items[section] || cvData.items[section].length === 0;
-  const eduItems = notEduItems ? [{ key: "key" }] : cvData.items[section];
+  const infoItems = notInfoItems ? [{ key: "key" }] : cvData.items[section];
 
   return (
     <ul>
-      {eduItems.map((eduItem) => {
+      {infoItems.map((eduItem) => {
         return (
           <li key={eduItem.key}>
             <div>{eduItem["study-title"] || "School title"}</div>
@@ -69,13 +66,13 @@ function CvEducationItem({ cvData }) {
 
 function CvExperienceItem({ cvData }) {
   const section = "exp";
-  const notEduItems =
+  const notInfoItems =
     !cvData.items[section] || cvData.items[section].length === 0;
-  const eduItems = notEduItems ? [{ key: "key" }] : cvData.items[section];
+  const infoItems = notInfoItems ? [{ key: "key" }] : cvData.items[section];
 
   return (
     <ul>
-      {eduItems.map((eduItem) => {
+      {infoItems.map((eduItem) => {
         return (
           <li key={eduItem.key}>
             <div>{eduItem["company-name"] || "Company name"}</div>
@@ -102,14 +99,20 @@ export default function CvView({ cvData, cvUpdated }) {
         </section>
         <section className="cv-educational">
           <div className="icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Education</title><path d="M12 3L1 9L5 11.18V17.18L12 21L19 17.18V11.18L21 10.09V17H23V9L12 3M18.82 9L12 12.72L5.18 9L12 5.28L18.82 9M17 16L12 18.72L7 16V12.27L12 15L17 12.27V16Z" /></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <title>Education</title>
+              <path d="M12 3L1 9L5 11.18V17.18L12 21L19 17.18V11.18L21 10.09V17H23V9L12 3M18.82 9L12 12.72L5.18 9L12 5.28L18.82 9M17 16L12 18.72L7 16V12.27L12 15L17 12.27V16Z" />
+            </svg>
           </div>
           <h2>Education</h2>
           <CvEducationItem cvData={cvData} />
         </section>
         <section className="cv-practical">
           <div className="icon">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Job</title><path d="M20,6C20.58,6 21.05,6.2 21.42,6.59C21.8,7 22,7.45 22,8V19C22,19.55 21.8,20 21.42,20.41C21.05,20.8 20.58,21 20,21H4C3.42,21 2.95,20.8 2.58,20.41C2.2,20 2,19.55 2,19V8C2,7.45 2.2,7 2.58,6.59C2.95,6.2 3.42,6 4,6H8V4C8,3.42 8.2,2.95 8.58,2.58C8.95,2.2 9.42,2 10,2H14C14.58,2 15.05,2.2 15.42,2.58C15.8,2.95 16,3.42 16,4V6H20M4,8V19H20V8H4M14,6V4H10V6H14Z" /></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <title>Job</title>
+              <path d="M20,6C20.58,6 21.05,6.2 21.42,6.59C21.8,7 22,7.45 22,8V19C22,19.55 21.8,20 21.42,20.41C21.05,20.8 20.58,21 20,21H4C3.42,21 2.95,20.8 2.58,20.41C2.2,20 2,19.55 2,19V8C2,7.45 2.2,7 2.58,6.59C2.95,6.2 3.42,6 4,6H8V4C8,3.42 8.2,2.95 8.58,2.58C8.95,2.2 9.42,2 10,2H14C14.58,2 15.05,2.2 15.42,2.58C15.8,2.95 16,3.42 16,4V6H20M4,8V19H20V8H4M14,6V4H10V6H14Z" />
+            </svg>
           </div>
           <h2>Experience</h2>
           <CvExperienceItem cvData={cvData} />

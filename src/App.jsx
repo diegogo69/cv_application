@@ -27,30 +27,26 @@ function App() {
   const clearCvData = () => {
     setCvData(cvEmpty);
     setCvInfoData(cvEmpty);
-    setErrMsgs({ edu: {}, exp: {} })
+    setErrMsgs({ edu: {}, exp: {} });
     storage.updateDraw(cvEmpty);
     storage.update();
   };
 
   const setFormData = (formEntries) => {
-    // formEntries.items = cvInfoData.items;
-    const newData = {...formEntries, items: cvInfoData.items}
+    const newData = { ...formEntries, items: cvInfoData.items };
     setCvInfoData(newData);
     setCvData(newData);
     return newData;
   };
 
-  const submitCvInfo = (formData) => {
-    // formData.keys .values .entries
-    const cvDataObj = setFormData(formData);
+  const submitCvInfo = (formEntries) => {
+    const cvDataObj = setFormData(formEntries);
     storage.updateDraw(cvDataObj);
     storage.update();
     updateCvPreview();
   };
 
   const addEduItem = (itemData, section) => {
-    // const cvDataObj = Object.fromEntries(formData.entries());
-
     const key = crypto.randomUUID();
     const eduItem = { ...itemData, key };
     const newItems = [...cvInfoData.items[section], eduItem];
@@ -70,7 +66,6 @@ function App() {
   };
 
   const saveEditEduItem = (itemData, section, index) => {
-    // const cvDataObj = Object.fromEntries(formData.entries());
     const newItems = [...cvInfoData.items[section]];
     newItems[index] = { ...newItems[index], ...itemData };
     setCvInfoData({

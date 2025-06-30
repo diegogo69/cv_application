@@ -102,8 +102,6 @@ const selectInfoItem = ({
   section,
   eduItems,
   editItem,
-  // errMsgs,
-  // setErrMsgs,
   setErrors,
   setEditItem,
   setFormData,
@@ -118,7 +116,6 @@ const selectInfoItem = ({
 
   if (editItem[section].key != key) setEditItem({ ...editItem, [section]: {} });
 
-  // setErrMsgs({});
   setErrors({ errors: {}, section });
   setFormData(formEntries);
   form.reset();
@@ -135,7 +132,6 @@ const handleAddInfoItem = ({
   e.preventDefault();
 
   if (eduItems.length + 1 > 3) {
-    // setErrMsgs({ "info-items-error": true });
     const errors = { "info-items-error": true };
     setErrors({ errors, section });
     return;
@@ -145,7 +141,6 @@ const handleAddInfoItem = ({
   const itemData = getItemData(inputNames, formData);
   const { errors, isValid } = validateItemData(itemData);
 
-  // setErrMsgs({ ...errors });
   setErrors({ errors, section });
 
   if (!isValid) return;
@@ -203,7 +198,6 @@ const cancelSaveEditItem = ({
   setErrors,
 }) => {
   e.preventDefault();
-  // setErrMsgs({});
   setErrors({ errors: {}, section });
   setEditItem({ ...editItem, [section]: {} });
 };
@@ -223,7 +217,6 @@ const handleSaveEditItem = ({
   const itemData = getItemData(inputNames, formData);
   const { errors, isValid } = validateItemData(itemData);
 
-  // setErrMsgs({ ...errors });
   setErrors({ errors, section });
 
   if (!isValid) return;
@@ -248,10 +241,6 @@ function EducationalInfo({
   const eduItems = cvData.items[section];
   const errMsgs = errors[section];
 
-  // const [errMsgs, setErrMsgs] = useState({});
-  // const [defaultValues, setDefaultValues] = useState(cvData);
-  // const [editItem, setEditItem] = useState({});
-
   const inputNames = [
     "school",
     "study-title",
@@ -273,8 +262,6 @@ function EducationalInfo({
     editItem,
     setEditItem,
     inputNames,
-    // errMsgs,
-    // setErrMsgs,
     setErrors,
     setFormData,
     addEduItem,
@@ -393,7 +380,6 @@ function EducationalInfo({
           <button
             type="submit"
             onClick={(e) => handleAddInfoItem({ e, ...handlersArgs })}
-            // disabled={cvData.eduItems.length > 2}
           >
             Add
           </button>
@@ -432,7 +418,6 @@ function PracticalExpInfo({
   const section = "exp";
   const eduItems = cvData.items[section];
   const errMsgs = errors[section];
-  // const [errMsgs, setErrMsgs] = useState({});
 
   const inputNames = [
     "company-name",
@@ -593,7 +578,6 @@ function PracticalExpInfo({
           <button
             type="submit"
             onClick={(e) => handleAddInfoItem({ e, ...handlersArgs })}
-            // disabled={cvData.eduItems.length > 2}
           >
             Add
           </button>
